@@ -1,0 +1,125 @@
+E:\grasshopper_C#\learningMVVM\learningMVVM\WpfApp1\bin\Debug\WpfApp1.exe.config
+E:\grasshopper_C#\learningMVVM\learningMVVM\WpfApp1\bin\Debug\WpfApp1.exe
+E:\grasshopper_C#\learningMVVM\learningMVVM\WpfApp1\bin\Debug\WpfApp1.pdb
+E:\grasshopper_C#\learningMVVM\learningMVVM\WpfApp1\obj\Debug\WpfApp1.csproj.AssemblyReference.cache
+E:\grasshopper_C#\learningMVVM\learningMVVM\WpfApp1\obj\Debug\MainWindow.g.cs
+E:\grasshopper_C#\learningMVVM\learningMVVM\WpfApp1\obj\Debug\App.g.cs
+E:\grasshopper_C#\learningMVVM\learningMVVM\WpfApp1\obj\Debug\WpfApp1_MarkupCompile.cache
+E:\grasshopper_C#\learningMVVM\learningMVVM\WpfApp1\obj\Debug\WpfApp1_MarkupCompile.lref
+E:\grasshopper_C#\learningMVVM\learningMVVM\WpfApp1\obj\Debug\MainWindow.baml
+E:\grasshopper_C#\learningMVVM\learningMVVM\WpfApp1\obj\Debug\WpfApp1.g.resources
+E:\grasshopper_C#\learningMVVM\learningMVVM\WpfApp1\obj\Debug\WpfApp1.Properties.Resources.resources
+E:\grasshopper_C#\learningMVVM\learningMVVM\WpfApp1\obj\Debug\WpfApp1.csproj.GenerateResource.cache
+E:\grasshopper_C#\learningMVVM\learningMVVM\WpfApp1\obj\Debug\WpfApp1.csproj.CoreCompileInputs.cache
+E:\grasshopper_C#\learningMVVM\learningMVVM\WpfApp1\obj\Debug\WpfApp1.exe
+E:\grasshopper_C#\learningMVVM\learningMVVM\WpfApp1\obj\Debug\WpfApp1.pdb
+E:\grasshopper_C#\learningMVVM\learningMVVM\WpfApp1\bin\Debug\CommonServiceLocator.dll
+E:\grasshopper_C#\learningMVVM\learningMVVM\WpfApp1\bin\Debug\GalaSoft.MvvmLight.dll
+E:\grasshopper_C#\learningMVVM\learningMVVM\WpfApp1\bin\Debug\GalaSoft.MvvmLight.Extras.dll
+E:\grasshopper_C#\learningMVVM\learningMVVM\WpfApp1\bin\Debug\GalaSoft.MvvmLight.Platform.dll
+E:\grasshopper_C#\learningMVVM\learningMVVM\WpfApp1\bin\Debug\System.Windows.Interactivity.dll
+E:\grasshopper_C#\learningMVVM\learningMVVM\WpfApp1\bin\Debug\GalaSoft.MvvmLight.pdb
+E:\grasshopper_C#\learningMVVM\learningMVVM\WpfApp1\bin\Debug\GalaSoft.MvvmLight.xml
+E:\grasshopper_C#\learningMVVM\learningMVVM\WpfApp1\bin\Debug\GalaSoft.MvvmLight.Extras.pdb
+E:\grasshopper_C#\learningMVVM\learningMVVM\WpfApp1\bin\Debug\GalaSoft.MvvmLight.Extras.xml
+E:\grasshopper_C#\learningMVVM\learningMVVM\WpfApp1\bin\Debug\GalaSoft.MvvmLight.Platform.pdb
+E:\grasshopper_C#\learningMVVM\learningMVVM\WpfApp1\bin\Debug\GalaSoft.MvvmLight.Platform.xml
+E:\grasshopper_C#\learningMVVM\learningMVVM\WpfApp1\obj\Debug\App.baml
+E:\grasshopper_C#\learningMVVM\learningMVVM\WpfApp1\obj\Debug\WpfApp1.csproj.CopyComplete
+E:\Darc\20230202 大学强排 生成\0917\learningMVVM\learningMVVM\learningMVVM\WpfApp1\bin\Debug\WpfApp1.exe.config
+E:\Darc\20230202 大学强排 生成\0917\learningMVVM\learningMVVM\learningMVVM\WpfApp1\bin\Debug\WpfApp1.exe
+E:\Darc\20230202 大学强排 生成\0917\learningMVVM\learningMVVM\learningMVVM\WpfApp1\bin\Debug\WpfApp1.pdb
+E:\Darc\20230202 大学强排 生成\0917\learningMVVM\learningMVVM\learningMVVM\WpfApp1\bin\Debug\CommonServiceLocator.dll
+E:\Darc\20230202 大学强排 生成\0917\learningMVVM\learningMVVM\learningMVVM\WpfApp1\bin\Debug\GalaSoft.MvvmLight.dll
+E:\Darc\20230202 大学强排 生成\0917\learningMVVM\learningMVVM\learningMVVM\WpfApp1\bin\Debug\GalaSoft.MvvmLight.Extras.dll
+E:\Darc\20230202 大学强排 生成\0917\learningMVVM\learningMVVM\learningMVVM\WpfApp1\bin\Debug\GalaSoft.MvvmLight.Platform.dll
+E:\Darc\20230202 大学强排 生成\0917\learningMVVM\learningMVVM\learningMVVM\WpfApp1\bin\Debug\System.Windows.Interactivity.dll
+E:\Darc\20230202 大学强排 生成\0917\learningMVVM\learningMVVM\learningMVVM\WpfApp1\bin\Debug\GalaSoft.MvvmLight.pdb
+E:\Darc\20230202 大学强排 生成\0917\learningMVVM\learningMVVM\learningMVVM\WpfApp1\bin\Debug\GalaSoft.MvvmLight.xml
+E:\Darc\20230202 大学强排 生成\0917\learningMVVM\learningMVVM\learningMVVM\WpfApp1\bin\Debug\GalaSoft.MvvmLight.Extras.pdb
+E:\Darc\20230202 大学强排 生成\0917\learningMVVM\learningMVVM\learningMVVM\WpfApp1\bin\Debug\GalaSoft.MvvmLight.Extras.xml
+E:\Darc\20230202 大学强排 生成\0917\learningMVVM\learningMVVM\learningMVVM\WpfApp1\bin\Debug\GalaSoft.MvvmLight.Platform.pdb
+E:\Darc\20230202 大学强排 生成\0917\learningMVVM\learningMVVM\learningMVVM\WpfApp1\bin\Debug\GalaSoft.MvvmLight.Platform.xml
+E:\Darc\20230202 大学强排 生成\0917\learningMVVM\learningMVVM\learningMVVM\WpfApp1\obj\Debug\WpfApp1.csproj.AssemblyReference.cache
+E:\Darc\20230202 大学强排 生成\0917\learningMVVM\learningMVVM\learningMVVM\WpfApp1\obj\Debug\WpfApp1.csproj.SuggestedBindingRedirects.cache
+E:\Darc\20230202 大学强排 生成\0917\learningMVVM\learningMVVM\learningMVVM\WpfApp1\obj\Debug\WpfApp1_MarkupCompile.cache
+E:\Darc\20230202 大学强排 生成\0917\learningMVVM\learningMVVM\learningMVVM\WpfApp1\obj\Debug\WpfApp1_MarkupCompile.lref
+E:\Darc\20230202 大学强排 生成\0917\learningMVVM\learningMVVM\learningMVVM\WpfApp1\obj\Debug\WpfApp1.g.resources
+E:\Darc\20230202 大学强排 生成\0917\learningMVVM\learningMVVM\learningMVVM\WpfApp1\obj\Debug\WpfApp1.Properties.Resources.resources
+E:\Darc\20230202 大学强排 生成\0917\learningMVVM\learningMVVM\learningMVVM\WpfApp1\obj\Debug\WpfApp1.csproj.GenerateResource.cache
+E:\Darc\20230202 大学强排 生成\0917\learningMVVM\learningMVVM\learningMVVM\WpfApp1\obj\Debug\WpfApp1.csproj.CoreCompileInputs.cache
+E:\Darc\20230202 大学强排 生成\0917\learningMVVM\learningMVVM\learningMVVM\WpfApp1\obj\Debug\WpfApp1.csproj.CopyComplete
+E:\Darc\20230202 大学强排 生成\0917\learningMVVM\learningMVVM\learningMVVM\WpfApp1\obj\Debug\WpfApp1.exe
+E:\Darc\20230202 大学强排 生成\0917\learningMVVM\learningMVVM\learningMVVM\WpfApp1\obj\Debug\WpfApp1.pdb
+E:\Darc\20230202 大学强排 生成\0917\learningMVVM\learningMVVM\learningMVVM\WpfApp1\bin\Debug\Eto.dll
+E:\Darc\20230202 大学强排 生成\0917\learningMVVM\learningMVVM\learningMVVM\WpfApp1\bin\Debug\GH_IO.dll
+E:\Darc\20230202 大学强排 生成\0917\learningMVVM\learningMVVM\learningMVVM\WpfApp1\bin\Debug\Grasshopper.dll
+E:\Darc\20230202 大学强排 生成\0917\learningMVVM\learningMVVM\learningMVVM\WpfApp1\bin\Debug\Rhino.UI.dll
+E:\Darc\20230202 大学强排 生成\0917\learningMVVM\learningMVVM\learningMVVM\WpfApp1\bin\Debug\RhinoCommon.dll
+E:\Darc\20230202 大学强排 生成\0917\learningMVVM\learningMVVM\learningMVVM\WpfApp1\bin\Debug\RhinoInside.dll
+E:\Darc\20230202 大学强排 生成\0917\learningMVVM\learningMVVM\learningMVVM\WpfApp1\bin\Debug\Eto.xml
+E:\Darc\20230202 大学强排 生成\0917\learningMVVM\learningMVVM\learningMVVM\WpfApp1\bin\Debug\GH_IO.xml
+E:\Darc\20230202 大学强排 生成\0917\learningMVVM\learningMVVM\learningMVVM\WpfApp1\bin\Debug\Grasshopper.xml
+E:\Darc\20230202 大学强排 生成\0917\learningMVVM\learningMVVM\learningMVVM\WpfApp1\bin\Debug\RhinoCommon.xml
+E:\Darc\20230202 大学强排 生成\0917\learningMVVM\learningMVVM\learningMVVM\WpfApp1\obj\Debug\RhinoEXEwindow.g.cs
+E:\Darc\20230202 大学强排 生成\0917\learningMVVM\learningMVVM\learningMVVM\WpfApp1\obj\Debug\RhinoEXEwindow.baml
+E:\Darc\20230202 大学强排 生成\0917\learningMVVM\learningMVVM\learningMVVM\WpfApp1\obj\Debug\Xamls\IndexWindow.g.cs
+E:\Darc\20230202 大学强排 生成\0917\learningMVVM\learningMVVM\learningMVVM\WpfApp1\obj\Debug\Xamls\Step1Window.g.cs
+E:\Darc\20230202 大学强排 生成\0917\learningMVVM\learningMVVM\learningMVVM\WpfApp1\obj\Debug\Xamls\IndexWindow.baml
+E:\Darc\20230202 大学强排 生成\0917\learningMVVM\learningMVVM\learningMVVM\WpfApp1\obj\Debug\Xamls\Step1Window.baml
+E:\Darc\20230202 大学强排 生成\0917\learningMVVM\learningMVVM\learningMVVM\WpfApp1\obj\Debug\App.g.cs
+E:\Darc\20230202 大学强排 生成\0917\learningMVVM\learningMVVM\learningMVVM\WpfApp1\obj\Debug\App.baml
+E:\Darc\20230202 大学强排 生成\0917\learningMVVM\learningMVVM\learningMVVM\WpfApp1\obj\Debug\Xamls\Districts_Text.g.cs
+E:\Darc\20230202 大学强排 生成\0917\learningMVVM\learningMVVM\learningMVVM\WpfApp1\obj\Debug\Xamls\Districts_Text.baml
+E:\Darc\20230202 大学强排 生成\0917\learningMVVM\learningMVVM\learningMVVM\WpfApp1\obj\Debug\Xamls\Districts_Model.g.cs
+E:\Darc\20230202 大学强排 生成\0917\learningMVVM\learningMVVM\learningMVVM\WpfApp1\obj\Debug\Xamls\Districts_Model.baml
+E:\Darc\20230202 大学强排 生成\0917\learningMVVM\learningMVVM\learningMVVM\WpfApp1\obj\Debug\Xamls\ChartChange.g.cs
+E:\Darc\20230202 大学强排 生成\0917\learningMVVM\learningMVVM\learningMVVM\WpfApp1\obj\Debug\Xamls\ChartChange.baml
+E:\learningMVVM(1)\learningMVVM\WpfApp1\bin\Debug\WpfApp1.exe.config
+E:\learningMVVM(1)\learningMVVM\WpfApp1\bin\Debug\WpfApp1.exe
+E:\learningMVVM(1)\learningMVVM\WpfApp1\bin\Debug\WpfApp1.pdb
+E:\learningMVVM(1)\learningMVVM\WpfApp1\bin\Debug\CommonServiceLocator.dll
+E:\learningMVVM(1)\learningMVVM\WpfApp1\bin\Debug\Eto.dll
+E:\learningMVVM(1)\learningMVVM\WpfApp1\bin\Debug\GalaSoft.MvvmLight.dll
+E:\learningMVVM(1)\learningMVVM\WpfApp1\bin\Debug\GalaSoft.MvvmLight.Extras.dll
+E:\learningMVVM(1)\learningMVVM\WpfApp1\bin\Debug\GalaSoft.MvvmLight.Platform.dll
+E:\learningMVVM(1)\learningMVVM\WpfApp1\bin\Debug\GH_IO.dll
+E:\learningMVVM(1)\learningMVVM\WpfApp1\bin\Debug\Grasshopper.dll
+E:\learningMVVM(1)\learningMVVM\WpfApp1\bin\Debug\Rhino.UI.dll
+E:\learningMVVM(1)\learningMVVM\WpfApp1\bin\Debug\RhinoCommon.dll
+E:\learningMVVM(1)\learningMVVM\WpfApp1\bin\Debug\RhinoInside.dll
+E:\learningMVVM(1)\learningMVVM\WpfApp1\bin\Debug\System.Windows.Interactivity.dll
+E:\learningMVVM(1)\learningMVVM\WpfApp1\bin\Debug\Eto.xml
+E:\learningMVVM(1)\learningMVVM\WpfApp1\bin\Debug\GalaSoft.MvvmLight.pdb
+E:\learningMVVM(1)\learningMVVM\WpfApp1\bin\Debug\GalaSoft.MvvmLight.xml
+E:\learningMVVM(1)\learningMVVM\WpfApp1\bin\Debug\GalaSoft.MvvmLight.Extras.pdb
+E:\learningMVVM(1)\learningMVVM\WpfApp1\bin\Debug\GalaSoft.MvvmLight.Extras.xml
+E:\learningMVVM(1)\learningMVVM\WpfApp1\bin\Debug\GalaSoft.MvvmLight.Platform.pdb
+E:\learningMVVM(1)\learningMVVM\WpfApp1\bin\Debug\GalaSoft.MvvmLight.Platform.xml
+E:\learningMVVM(1)\learningMVVM\WpfApp1\bin\Debug\GH_IO.xml
+E:\learningMVVM(1)\learningMVVM\WpfApp1\bin\Debug\Grasshopper.xml
+E:\learningMVVM(1)\learningMVVM\WpfApp1\bin\Debug\RhinoCommon.xml
+E:\learningMVVM(1)\learningMVVM\WpfApp1\obj\Debug\WpfApp1.csproj.AssemblyReference.cache
+E:\learningMVVM(1)\learningMVVM\WpfApp1\obj\Debug\Xamls\ChartChange.g.cs
+E:\learningMVVM(1)\learningMVVM\WpfApp1\obj\Debug\Xamls\Districts_Model.g.cs
+E:\learningMVVM(1)\learningMVVM\WpfApp1\obj\Debug\Xamls\Districts_Text.g.cs
+E:\learningMVVM(1)\learningMVVM\WpfApp1\obj\Debug\Xamls\IndexWindow.g.cs
+E:\learningMVVM(1)\learningMVVM\WpfApp1\obj\Debug\Xamls\Step1Window.g.cs
+E:\learningMVVM(1)\learningMVVM\WpfApp1\obj\Debug\RhinoEXEwindow.g.cs
+E:\learningMVVM(1)\learningMVVM\WpfApp1\obj\Debug\App.g.cs
+E:\learningMVVM(1)\learningMVVM\WpfApp1\obj\Debug\WpfApp1_MarkupCompile.cache
+E:\learningMVVM(1)\learningMVVM\WpfApp1\obj\Debug\WpfApp1_MarkupCompile.lref
+E:\learningMVVM(1)\learningMVVM\WpfApp1\obj\Debug\App.baml
+E:\learningMVVM(1)\learningMVVM\WpfApp1\obj\Debug\Xamls\ChartChange.baml
+E:\learningMVVM(1)\learningMVVM\WpfApp1\obj\Debug\Xamls\Districts_Model.baml
+E:\learningMVVM(1)\learningMVVM\WpfApp1\obj\Debug\Xamls\Districts_Text.baml
+E:\learningMVVM(1)\learningMVVM\WpfApp1\obj\Debug\Xamls\IndexWindow.baml
+E:\learningMVVM(1)\learningMVVM\WpfApp1\obj\Debug\Xamls\Step1Window.baml
+E:\learningMVVM(1)\learningMVVM\WpfApp1\obj\Debug\RhinoEXEwindow.baml
+E:\learningMVVM(1)\learningMVVM\WpfApp1\obj\Debug\WpfApp1.g.resources
+E:\learningMVVM(1)\learningMVVM\WpfApp1\obj\Debug\WpfApp1.Properties.Resources.resources
+E:\learningMVVM(1)\learningMVVM\WpfApp1\obj\Debug\WpfApp1.csproj.GenerateResource.cache
+E:\learningMVVM(1)\learningMVVM\WpfApp1\obj\Debug\WpfApp1.csproj.CoreCompileInputs.cache
+E:\learningMVVM(1)\learningMVVM\WpfApp1\obj\Debug\WpfApp1.csproj.CopyComplete
+E:\learningMVVM(1)\learningMVVM\WpfApp1\obj\Debug\WpfApp1.exe
+E:\learningMVVM(1)\learningMVVM\WpfApp1\obj\Debug\WpfApp1.pdb

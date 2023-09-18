@@ -1,0 +1,27 @@
+﻿<Window x:Class="WpfApp1.Xamls.ChartChange"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1.Xamls"
+        mc:Ignorable="d"
+        Title="ChartChange" Height="600" Width="900">
+    <Grid>
+        <DataGrid x:Name="myDataGrid" AutoGenerateColumns="False" HorizontalAlignment="Center" VerticalAlignment="Center" Height="300">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="选配项目" Binding="{Binding Name}" Width="60"/>
+                <DataGridTextColumn Header="人均 专业本科" Binding="{Binding Zbenke}" />
+                <DataGridTextColumn Header="人均 专业硕士" Binding="{Binding Zshuoshi}" />
+                <DataGridTextColumn Header="人均 专业博士" Binding="{Binding Zboshi}" />
+                <DataGridTextColumn Header="人均 留学生" Binding="{Binding Zinter}" />
+                <DataGridTextColumn Header="人均 总" Binding="{Binding Ztotal}" Width="50" />
+                <DataGridTextColumn Header="总建筑面积" Binding="{Binding TotalArea}" Width="80" />
+                <DataGridTextColumn Header="分区（同名称为同一分区）" Binding="{Binding DistrictName}" />
+                <DataGridTextColumn Header="层数" Binding="{Binding Level}" Width="40"/>
+                <DataGridTextColumn Header="密度" Binding="{Binding Density}" Width="40"/>
+                <DataGridTextColumn Header="面积浮动" Binding="{Binding AreaBias}" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Content="确认并返回" Click="Button_Click" Width="200" Height="50" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="350,511,350,0"/>
+    </Grid>
+</Window>

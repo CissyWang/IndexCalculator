@@ -1,0 +1,13 @@
+﻿<Window x:Class="TestRhinoInWPF.IndexWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestRhinoInWPF"
+        mc:Ignorable="d"
+        Title="大学校园生成ver alpha.01" Height="600" Width="900" FontSize="15">
+    <Grid>
+        <Button Content="开始" Click="Next_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Background="White" Width="100" Height="30" Margin="366,527,0,0"/>
+        <Image Margin="22,29,68,76" Source="/Resources/FlowChart0.png"/>
+    </Grid>
+</Window>

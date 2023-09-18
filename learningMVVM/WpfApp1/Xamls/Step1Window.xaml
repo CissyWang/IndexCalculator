@@ -1,0 +1,93 @@
+﻿<Window x:Class="WpfApp1.Step1Window"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1"
+        mc:Ignorable="d"
+        Title="面积核验阶段" Height="600" Width="900" FontSize="15">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1.1*"/>
+            <ColumnDefinition Width="1.9*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel  Grid.Column="0" HorizontalAlignment="Center">
+            <StackPanel Orientation="Vertical">
+                <TextBlock  Text=""  Height="20"/>
+                <TextBlock  Text="学校类型"  Height="20" FontWeight="Black"/>
+                <ComboBox Name="TypeBox" >
+                    <ComboBoxItem>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Foreground="Red">综合一类-0</TextBlock>
+                        </StackPanel>
+                    </ComboBoxItem>
+                    <ComboBoxItem>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Foreground="Green">工业类-1</TextBlock>
+                        </StackPanel>
+                    </ComboBoxItem>
+                    <ComboBoxItem>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Foreground="Blue">财经-2</TextBlock>
+                        </StackPanel>
+                    </ComboBoxItem>
+                </ComboBox>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock  Text="选择需要计算的学校类型:"  Height="18"/>
+                    <TextBox  Name="nowType" Text="{Binding Type}" Width="100"/>
+                </StackPanel>
+                <TextBlock  Text=""  Height="20"/>
+            </StackPanel>
+
+            <StackPanel>
+                <TextBlock  Text="面积计算"  Height="20" FontWeight="Black"/>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock  Text="用地面积（公顷）: "  />
+                    <TextBox   Text="{Binding SiteArea}" Width="100"/>
+                </StackPanel>
+                <TextBlock Width="100"/>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock   Text="学生人数:              " />
+                    <TextBox  Text="{Binding Population}" Width="100"/>
+                    <Button Content="检测" Command="{Binding ExaminePopulationCommand}" Height="20" Width="50"/>
+                </StackPanel>
+                <TextBlock Text="{Binding ExaminePopulationResult}" FontStyle="Italic"/>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock   Text="容积率:                 " />
+                    <TextBox  Text="{Binding PlotRatio}" Width="100"/>
+                    <Button Content="检测" Command="{Binding ExamineRatioCommand}" Height="20" Width="50"/>
+                </StackPanel>
+                <TextBlock Text="{Binding ExamineRatioResult}" FontStyle="Italic"/>
+            </StackPanel>
+            <Button Content="下一步" Click="ShowRes" />
+            <StackPanel x:Name="res" Visibility="Hidden">
+                <TextBlock x:Name="res1" Text="目标总建筑面积"/>
+                <TextBlock Text="{Binding AreaTarget}"/>
+                <TextBlock Text="实际生均用地" />
+                <TextBlock Text="{Binding SiteAreaPer}"/>
+                <TextBlock Text="生均校舍面积" />
+                <TextBox Text="{Binding BuildingSiteAreaPer}"/>
+                <TextBlock Text="生均体育面积" />
+                <TextBox Text="{Binding SportsSiteAreaPer}"/>
+                <Button Content="Confirm" Command="{Binding ConfirmCommand}"  />
+                <TextBlock Text="校舍面积" />
+                <TextBlock Text="{Binding BuildingSiteArea}"/>
+                <TextBlock Text="体育面积" />
+                <TextBlock Text="{Binding SportsSiteArea}"/>
+                
+                <Button x:Name="CalButton"  Content="开始计算" Click="StartCal"/>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel x:Name="ResAreaPanel" Grid.Column="1" Visibility="Hidden">
+            <TextBlock  Text=""  Height="20"/>
+            <TextBlock  Text="必配建筑项目面积" FontWeight="Black" />
+            <TextBlock x:Name="BasicAreas" Height="200"/>
+            <TextBlock  Text="选配建筑项目面积" FontWeight="Black"/>
+            <TextBlock x:Name="SelectiveAreas" Height="200"/>
+            <Button  Content="调整选配项目参数" Click="Change"  VerticalAlignment="Top" Width="150" Height="30"/>
+            <TextBlock  Text=""  Height="20"/>
+            <Button  Content="下一步->计算分区" Click="NextStep"  VerticalAlignment="Top" Width="200" Height="30"/>
+        </StackPanel>
+        
+    </Grid>
+</Window>
