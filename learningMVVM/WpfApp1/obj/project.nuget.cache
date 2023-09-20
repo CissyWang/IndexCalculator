@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "dgSpecHash": "JSrRkj3Xk6lwRoqY66kKcd998mEU79mBOk9Biaq+/w/GCBZQcBQmaBLdXlyV/zq6xY0yyGokNgS3mzKRWlgUkg==",
+  "success": true,
+  "projectFilePath": "E:\\learningMVVM(1)\\learningMVVM\\WpfApp1\\WpfApp1.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Administrator\\.nuget\\packages\\commonservicelocator\\2.0.7\\commonservicelocator.2.0.7.nupkg.sha512",
+    "C:\\Users\\Administrator\\.nuget\\packages\\grasshopper\\7.0.20314.3001\\grasshopper.7.0.20314.3001.nupkg.sha512",
+    "C:\\Users\\Administrator\\.nuget\\packages\\mvvmlight\\5.4.1.1\\mvvmlight.5.4.1.1.nupkg.sha512",
+    "C:\\Users\\Administrator\\.nuget\\packages\\mvvmlightlibs\\5.4.1.1\\mvvmlightlibs.5.4.1.1.nupkg.sha512",
+    "C:\\Users\\Administrator\\.nuget\\packages\\rhino.inside\\7.0.0\\rhino.inside.7.0.0.nupkg.sha512",
+    "C:\\Users\\Administrator\\.nuget\\packages\\rhinocommon\\7.0.20314.3001\\rhinocommon.7.0.20314.3001.nupkg.sha512",
+    "C:\\Users\\Administrator\\.nuget\\packages\\rhinowindows\\7.0.20314.3001\\rhinowindows.7.0.20314.3001.nupkg.sha512"
+  ],
+  "logs": []
+}

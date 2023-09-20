@@ -11,9 +11,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using WpfApp1;
 
-namespace TestRhinoInWPF
+
+namespace WpfApp1
 {
     /// <summary>
     /// IndexWindow.xaml 的交互逻辑
@@ -22,12 +22,14 @@ namespace TestRhinoInWPF
     {
         public IndexWindow()
         {
+            
             InitializeComponent();
         }
 
+
         private void Next_Click(object sender, RoutedEventArgs e)
         {
-            Step1Window window1= new Step1Window();
+            Step1Window window1 = new Step1Window();
             window1.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             window1.Show();
             this.Hide();

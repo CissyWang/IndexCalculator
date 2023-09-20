@@ -5,13 +5,31 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
-        Title="分区结果-模型" Height="600" Width="900">
+        Title="分区结果-模型" Height="600" Width="900" Loaded="OnLoaded" Unloaded="UnLoaded">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="9*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <Image Source="/Resources/resmodel.png"/>
+        <DockPanel Margin="20">
+            <StackPanel DockPanel.Dock="Top"  Height="30"  Width="170" Orientation="Horizontal" HorizontalAlignment="Left">
+                <Menu Margin="5,2" BorderBrush="LightGray" BorderThickness="1">
+                    <MenuItem  Header="Open..." Width="65" Height="26" >
+                        <MenuItem  Name="BtnOpenFile"  Header="Open" Click="BtnOpenFile_Click"  />
+                        <MenuItem Name="BtnImort"   Header="Import" Click="BtnImport_Click" />
+                        <MenuItem Name="BtnSave"   Header="Save" Click="BtnSave_Click" />
+                    </MenuItem>
+                </Menu>
+                <ComboBox Width="80"  Name="modeBox"
+                          DisplayMemberPath="EnglishName" 
+                          SelectedIndex="1" SelectedValuePath="Key" Margin="5,2" SelectionChanged="modeBox_SelectionChanged"></ComboBox>
+
+            </StackPanel>
+            <!--<Border BorderBrush="Gray"  BorderThickness="1" DockPanel.Dock="Bottom">-->
+                <Grid x:Name="rhinoViewGrid" />
+            <!--</Border>-->
+        </DockPanel>
+        <!--<Image Source="/Resources/resmodel.png"/>-->
         <Button Click="Button_Click"  Grid.Row="1" Content="查看数据结果" Width="150" Height="30"/>
     </Grid>
 </Window>
