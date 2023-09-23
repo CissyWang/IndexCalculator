@@ -19,7 +19,8 @@ namespace WpfApp1
         {
             
             Application app = new Application();
-            Districts_Model win = new Districts_Model();
+            //Districts_Model win = new Districts_Model();
+            Step1Window win = new Step1Window();
             app.Run(win);
         }
     }

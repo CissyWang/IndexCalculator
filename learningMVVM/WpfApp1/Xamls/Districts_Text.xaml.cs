@@ -27,9 +27,6 @@ namespace WpfApp1.Xamls
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Districts_Model win3 = new Districts_Model();
-            win3.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            win3.Show();
             this.Close();
         }
     }

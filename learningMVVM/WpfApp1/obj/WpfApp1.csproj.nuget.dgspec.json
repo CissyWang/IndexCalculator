@@ -46,6 +46,10 @@
               "target": "Package",
               "version": "[5.4.1.1, )"
             },
+            "NPOI": {
+              "target": "Package",
+              "version": "[2.6.2, )"
+            },
             "Rhino.Inside": {
               "target": "Package",
               "version": "[7.0.0, )"

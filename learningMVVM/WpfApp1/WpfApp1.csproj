@@ -59,28 +59,22 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="Building.cs" />
+    <Compile Include="SchoolType.cs" />
     <Compile Include="Xamls\ChartChange.xaml.cs">
       <DependentUpon>ChartChange.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Xamls\Districts_Model.xaml.cs">
-      <DependentUpon>Districts_Model.xaml</DependentUpon>
     </Compile>
     <Compile Include="Xamls\Districts_Text.xaml.cs">
       <DependentUpon>Districts_Text.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Xamls\XamlUtl.cs" />
+    <Compile Include="Xamls\RegChart.xaml.cs">
+      <DependentUpon>RegChart.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Xamls\IndexWindow.xaml.cs">
       <DependentUpon>IndexWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\MainViewModel.cs" />
-    <Compile Include="RhinoEXEwindow.xaml.cs">
-      <DependentUpon>RhinoEXEwindow.xaml</DependentUpon>
-    </Compile>
     <Page Include="Xamls\ChartChange.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Xamls\Districts_Model.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -105,9 +99,9 @@
       <DependentUpon>Step1Window.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="RhinoEXEwindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="Xamls\RegChart.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -132,18 +126,27 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <EmbeddedResource Include="Resources\IndexChart.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\restext.png" />
+    <Resource Include="Resources\restext.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\FlowChart0.png" />
+    <Resource Include="Resources\FlowChart0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\resmodel.png" />
+    <Resource Include="Resources\resmodel.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="CommonServiceLocator">
@@ -154,6 +157,9 @@
     </PackageReference>
     <PackageReference Include="MvvmLightLibs">
       <Version>5.4.1.1</Version>
+    </PackageReference>
+    <PackageReference Include="NPOI">
+      <Version>2.6.2</Version>
     </PackageReference>
     <PackageReference Include="Rhino.Inside">
       <Version>7.0.0</Version>
