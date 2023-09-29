@@ -47,7 +47,7 @@ namespace WpfApp1
         }
 
         //插值法计算生均建筑面积
-        public double InsertAreaPer(int population)
+        public double InsertAreaPer(int population,double[] areaPerList)
         {
             double num = 0;
             if (population < popClass[0])
@@ -56,7 +56,7 @@ namespace WpfApp1
             {
                 if (population < popClass[i])
                 {
-                    num = areaPerList[i] - (popClass[i] - population) / (areaPerList[i] - areaPerList[i - 1]);
+                    num = areaPerList[i] - (popClass[i] - population)* (areaPerList[i] - areaPerList[i - 1]) / (popClass[i]- popClass[i-1]);
                     break;
                 }
                 else

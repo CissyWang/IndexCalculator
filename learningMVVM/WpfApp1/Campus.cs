@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -20,30 +21,54 @@ namespace WpfApp1
     //}
     public class Campus
     {
-        SchoolType type;
-        int population;
-        double plotRatio;
-        double siteArea;
-
         public Campus()
         {
 
         }
 
         //public int Type { get => (int)type; set => type = (schoolType)value; }
-        public int Population { get => population; set => population = value; }
-        public double PlotRatio { get => plotRatio; set => plotRatio = value; }
-        public double SiteArea { get => siteArea; set => siteArea = value; }
+        public int Population { get; set; }
+        public double PlotRatio { get; set; }
+        public double SiteArea { get; set; }
 
-
-        public double AreaTarget { get => siteArea * plotRatio; }
-        public double SiteAreaPer { get => siteArea / population; }
+        public BuildingList MustBuildings{get;set;}
+        public BuildingList OptionalBuildings { get; set; }
+        public double AreaTarget { get => SiteArea * PlotRatio; }
+        public double SiteAreaPer { get => SiteArea / Population; }
 
         public double SiteAreaPer_Limit { set; get; }
         public double BuildingSiteAreaPer { set; get; }
         public double SportsSiteAreaPer { set; get; }
         public double BuildingSiteArea { get => BuildingSiteAreaPer * Population; }
         public double SportsSiteArea { get => SportsSiteAreaPer * Population; }
-        public SchoolType Type { get => type; set => type = value; }
+        public SchoolType Type { get; set; }
+
+        public void SetMustBuildingList( DataTable dt)
+        {
+            MustBuildings = new BuildingList();
+            int index = 0;
+            int lastIndex = dt.Columns.Count - 1;
+            foreach (DataRow dr in dt.Rows)
+            {
+                double[] area1 = new double[lastIndex - 3];
+                for (int i = 1; i <= area1.Length; i++)
+                {
+                    area1[i-1] = Convert.ToDouble(dr[i]);
+                }
+                double areaPer = Type.InsertAreaPer(Population, area1);
+                Building _building = new Building
+                {
+                    Name = dr[0].ToString(),
+                    District_name = dr[lastIndex - 2].ToString(),
+                    Layer = Convert.ToInt32(dr[lastIndex - 1]),
+                    Density = Convert.ToDouble(dr[lastIndex]),
+                    Area_per = areaPer,
+                    Area = Population * areaPer,
+                };
+
+                MustBuildings.Add(_building);
+                index++;
+            }
+        }
     }
 }

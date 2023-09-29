@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WpfApp1"
+        xmlns:local="clr-namespace:WpfApp1" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
         Title="校园指标计算器" Height="720" Width="1280" FontSize="12" Loaded="OnLoaded" Unloaded="UnLoaded" SizeChanged="Window_SizeChanged" Background="White">
     <Window.Resources>
@@ -16,7 +16,7 @@
         </Style>
         <Style TargetType="Button" >
             <Setter Property="Background" Value="White"/>
-            <Setter Property="Margin" Value="10,10"/>
+            <Setter Property="Margin" Value="10,5"/>
         </Style>
     </Window.Resources>
     <Grid>
@@ -34,7 +34,19 @@
                     <StackPanel Orientation="Vertical" Margin="0,0,0,15">
                         <!--<Expander Header="初始输入" >-->
                         <TextBlock  Text="初始输入" Height="20" FontWeight="Black"/>
-                        <Button Content="查看当前规范" Command="{Binding OpenRegChartCommand}"/>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="选择规范"/>
+                            <ComboBox  Name="cTypeCombo" Width="90" Height="20"  DisplayMemberPath="Key" Margin="10,0"
+                                       SelectedValuePath="Value" ItemsSource="{Binding CTypeList}" SelectedValue="{Binding Reg}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="SelectionChanged">
+                                        <i:InvokeCommandAction Command="{Binding SelectCtypeChangedCommand}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </ComboBox>
+                            <Button Content="查看" Command="{Binding OpenRegChartCommand}"/>
+                        </StackPanel>
+
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="100"/>
@@ -70,7 +82,7 @@
                     </StackPanel>
 
                     <!--Step2  Visibility="Hidden"-->
-                    <StackPanel x:Name="step2" Margin="0,15"  >
+                    <StackPanel x:Name="step2" Margin="0,10" >
                         <TextBlock  Text="总体指标"  Height="20" FontWeight="Black"/>
 
                         <StackPanel Orientation="Horizontal" Margin="0,5">
@@ -109,7 +121,7 @@
                         <Button Content="下一步" Click="ShowStep3" Background="White"/>
                     </StackPanel>
                     <!--Step3 Visibility="Hidden"-->
-                    <StackPanel Name="step3"  Margin="0,15">
+                    <StackPanel Name="step3"  Margin="0,10">
                         <TextBlock  Text="建筑项目"  Height="20" FontWeight="Black"/>
                         <Grid >
                             <Grid.ColumnDefinitions>
@@ -118,10 +130,10 @@
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
                             <Button Grid.Column="0" Content="必配项目" Command="{Binding SetMustCommand}"  VerticalAlignment="Top" Height="60" Background="AliceBlue" />
-                            <Button  Grid.Column="2" Content="选配项目" VerticalAlignment="Top"  Height="60" Background="AntiqueWhite" />
+                            <Button  Grid.Column="2" Content="选配项目" Command="{Binding SetOptionalCommand}" VerticalAlignment="Top"  Height="60" Background="AntiqueWhite" />
                         </Grid>
-                        <Button x:Name="CalButton"  Content="确定" Click="StartCal"  />
-                        <Button  Content="切换视图" Click="NextStep"  VerticalAlignment="Top" />
+                        <Button x:Name="CalButton"  Content="配置分区" Click="StartCal"  />
+                        <Button  Content="加载三维模型" Click="NextStep"  VerticalAlignment="Top" />
                     </StackPanel>
                 </StackPanel>
             </StackPanel>

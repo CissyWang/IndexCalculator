@@ -8,8 +8,54 @@
         Title="xaml" Height="450" Width="800">
     <Grid>
         <DataGrid x:Name="regGrid" 
-                      AutoGenerateColumns="True" HorizontalAlignment="Center" 
+                      AutoGenerateColumns="False" HorizontalAlignment="Center" CanUserAddRows="False"
                       VerticalAlignment="Center" Height="300"  ItemsSource="{Binding Model}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding Key}" Width="50" />
+                <DataGridTextColumn Header="类型" Binding="{Binding Text}" Width="50" />
+                <DataGridTemplateColumn Header="生均用地规模分级" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ListBox ItemsSource="{Binding Classify}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn >
+                <DataGridTemplateColumn Header="生均用地/㎡" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ListBox ItemsSource="{Binding SitePerList[0]}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn >
+                <DataGridTemplateColumn Header="生均体育用地/㎡" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ListBox ItemsSource="{Binding SitePerList[1]}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn >
+                <DataGridTemplateColumn Header="生均校舍用地/㎡" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ListBox ItemsSource="{Binding SitePerList[2]}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn >
+                <DataGridTemplateColumn Header="生均用地面积规模分级" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ListBox ItemsSource="{Binding  PopClass}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn >
+                <DataGridTemplateColumn Header="生均建筑面积规模分级" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ListBox ItemsSource="{Binding  AreaPerList}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn >
+            </DataGrid.Columns>
         </DataGrid>
     </Grid>
 </Window>

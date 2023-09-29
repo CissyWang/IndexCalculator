@@ -42,14 +42,23 @@ namespace WpfApp1.ViewModel
 
             ConfirmCommand = new RelayCommand(this.Confirm);
             SetMustCommand = new RelayCommand(this.SetMustBuiding);
+            //SetOptionalCommand = new RelayCommand(this.SetOptionalBuiding);
             OpenRegChartCommand = new RelayCommand(this.OpenRegChart);
-            this.SetTypeList();
-            SchoolType = schoolTypeList[0];
-        }
+
+            SelectCtypeChangedCommand = new RelayCommand(this.SelectCtypeChanged);
+
+            CTypeList.Add("普通高等学校", "Resources/IndexChart-university.xlsx");
+            CTypeList.Add("高等职业学校", "Resources/IndexChart.xlsx");
+
+
+        }  
         public RelayCommand ExaminePopulationCommand { get; set; }
         public RelayCommand ConfirmCommand { get; set; }
         public RelayCommand SetMustCommand { get; set; }
+        public RelayCommand SetOptionalCommand { get; set; }
         public RelayCommand OpenRegChartCommand { get; set; }
+        public RelayCommand SelectCtypeChangedCommand { get; set; }
+
         public SchoolType SchoolType { get => campus.Type; set { campus.Type = value; RaisePropertyChanged(); } }
         public int Population { get => campus.Population; set { campus.Population = value > 0 ? value : 0; RaisePropertyChanged(); } }
         public double PlotRatio { get => campus.PlotRatio; set { campus.PlotRatio = value > 0 ? value : 0; RaisePropertyChanged(); } }
@@ -70,10 +79,11 @@ namespace WpfApp1.ViewModel
             set { examinePopulationResult = value; RaisePropertyChanged(); }
         }
         public string ExamineRatioResult { get => examineRatioResult; set { examineRatioResult = value; RaisePropertyChanged(); } }
-
+        public Dictionary<string,string> CTypeList { get; set; } = new Dictionary<string, string>();
 
         private ObservableCollection<SchoolType> schoolTypeList;
         public ObservableCollection<SchoolType> SchoolTypeList { get => schoolTypeList; set { schoolTypeList = value; RaisePropertyChanged(); } }
+
         public double AreaTarget { get => areaTarget; set { areaTarget = value; RaisePropertyChanged(); } }
         public double SiteAreaPer { get => siteAreaPer; set { siteAreaPer = value; RaisePropertyChanged(); } }
         public double BuildingSiteAreaPer { get => campus.BuildingSiteAreaPer; set { campus.BuildingSiteAreaPer = value; RaisePropertyChanged(); } }
@@ -81,7 +91,8 @@ namespace WpfApp1.ViewModel
         public double BuildingSiteArea { get => buildingSiteArea; set { buildingSiteArea = value; RaisePropertyChanged(); } }
         public double SportsSiteArea { get => sportsSiteArea; set { sportsSiteArea = value; RaisePropertyChanged(); } }
 
-
+        string reg;
+        public string Reg { get => reg; set { reg = value; RaisePropertyChanged(); } }
 
         private void ExaminePopulation()
         {
@@ -89,7 +100,7 @@ namespace WpfApp1.ViewModel
             //确定生均限制
             double[] temp = SchoolType.PickNum(Population);
             SiteAreaPer_Limit = temp[0];//规范的生均总用地限制
-            double areaPerLimit = SchoolType.InsertAreaPer( Population);
+            double areaPerLimit = SchoolType.InsertAreaPer( Population,SchoolType.AreaPerList);
 
             //核验1
             int pop_limit = (int)(SiteArea / SiteAreaPer_Limit);//倒推人数限制
@@ -118,16 +129,16 @@ namespace WpfApp1.ViewModel
             }
         }
 
-        private ObservableCollection<Building> mustBuildings;
-        public ObservableCollection<Building> MustBuildings { get => mustBuildings; set { mustBuildings = value; RaisePropertyChanged(); } }
-        private void SetMustBuiding()
+        //private ObservableCollection<Building> mustBuildings;
+        //public ObservableCollection<Building> MustBuildings { get => mustBuildings; set { mustBuildings = value; RaisePropertyChanged(); } }
+        //private ObservableCollection<Building> optionalBuildings;
+        //public ObservableCollection<Building> OptionalBuildings { get => optionalBuildings; set { optionalBuildings = value; RaisePropertyChanged(); } }
+        private void SelectCtypeChanged()
         {
-            MustBuildings = new ObservableCollection<Building>();
-            MustBuildings.Add(new Building(0, "11", 1, 1, 1, "1"));
-            ChartChange chartWindow = new ChartChange(MustBuildings);
-            chartWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            chartWindow.Show();
+            SetTypeList(reg);
+            SchoolType = schoolTypeList[0];
         }
+
         private void OpenRegChart()
         {
             RegChart chartWindow = new RegChart(schoolTypeList);
@@ -192,10 +203,10 @@ namespace WpfApp1.ViewModel
                     }
                     //最后一行的标号
                     rowCount = sheet.LastRowNum;
-                    for (int i = startRow; i < rowCount-1; ++i)//循环遍历所有行
+                    for (int i = startRow; i <= rowCount; ++i)//循环遍历所有行
                     {
                         IRow row = sheet.GetRow(i);//第几行
-                        if (row == null)
+                        if (row == null||row.GetCell(0)==null)
                         {
                             continue; //没有数据的行默认是null;
                         }
@@ -210,6 +221,7 @@ namespace WpfApp1.ViewModel
                         }
                         data.Rows.Add(dataRow);
                     }
+                   int n =  data.Rows.Count;
                 }
                 return data;
             }
@@ -220,17 +232,17 @@ namespace WpfApp1.ViewModel
             }
         }
 
-        public void SetTypeList()
+        private void SetTypeList(string path)
         {
 
-            DataTable dt = ExcelToDatatable("Resources/IndexChart.xlsx", "生均面积指标", true);
+            DataTable dt = ExcelToDatatable(path, "生均面积指标", true);
             int stIndex = 0;
-            schoolTypeList = new ObservableCollection<SchoolType>();
+            ObservableCollection<SchoolType>  _schoolTypeList = new ObservableCollection<SchoolType>();
+
             foreach (DataRow dr in dt.Rows)
             {
 
                 string[] a = dr[1].ToString().Split('-');
-                Console.WriteLine(a.Length);
                 string[][] a1 = new string[3][];
                 for (int j = 0; j < 3; j++)
                 {
@@ -244,7 +256,6 @@ namespace WpfApp1.ViewModel
                 }
                 for (int i = 0; i < a.Length; i++)
                 {
-                    Console.WriteLine(a[i]);
                     class1[i] = Convert.ToInt32(a[i]);
                     for (int j = 0; j < 3; j++)
                     {
@@ -271,10 +282,29 @@ namespace WpfApp1.ViewModel
                     PopClass = class2,
                     AreaPerList = areaPer
                 };
-                schoolTypeList.Add(st);
+                _schoolTypeList.Add(st);
                 stIndex++;
             }
+
+            SchoolTypeList = _schoolTypeList;
         }
+        private void SetMustBuiding()
+        {
+            DataTable dt  = ExcelToDatatable("Resources/mustBuildings.xlsx", "sheet1", true);
+            campus.SetMustBuildingList(dt);
+
+            ChartChange chartWindow = new ChartChange(campus);
+            chartWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            chartWindow.Show();
+        }
+        //private void SetOptionalBuiding()
+        //{
+        //    OptionalBuildings = new ObservableCollection<Building>();
+        //    //OptionalBuildings.Add(new Building(0, "11", 1, 1, 1, "1"));
+        //    ChartChange chartWindow = new ChartChange(campus);
+        //    chartWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+        //    chartWindow.Show();
+        //}
         #endregion
 
     }
