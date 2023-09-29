@@ -20,24 +20,24 @@ namespace WpfApp1.Xamls
     /// </summary>
     public partial class ChartChange : Window
     {
-        //public ObservableCollection<Projects> projects { get; set; }
-        public ChartChange(ObservableCollection<Building> buildingList)
+
+        Campus campus;
+        public ChartChange(Campus campus)
         {
+            this.campus = campus;
             InitializeComponent();
             this.DataContext = new
             {
-                Model = buildingList
+                Model = campus.MustBuildings.Buildings
             };
         }
 
-        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
 
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            if (campus.MustBuildings.Area > campus.AreaTarget)
+                MessageBox.Show("必配项超出");
             this.Close();
         }
     }

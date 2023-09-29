@@ -48,11 +48,7 @@ namespace WpfApp1
         private IntPtr viewHandle = IntPtr.Zero;
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            ///1. 启动rhinoCore
-            _rhinoCore = new RhinoCore(new string[] { "/NOSPLASH" }, Rhino.Runtime.InProcess.WindowStyle.Hidden);//不显示启动界面，隐藏窗口
-            SetRhinoView();
-            //界面
-            modeBox.ItemsSource = Rhino.Display.DisplayModeDescription.GetDisplayModes();
+
         }
         private void UnLoaded(object sender, RoutedEventArgs e)
         {
@@ -188,7 +184,7 @@ namespace WpfApp1
         }
         private void StartCal(object sender, RoutedEventArgs e)
         {
-            CalButton.Content = "重新计算";
+            CalButton.Content = "重新配置";
             ResAreaPanel.Visibility= Visibility.Visible;
             BasicAreas.Text = _myText;
             SelectiveAreas.Text= _myText1;
@@ -196,10 +192,22 @@ namespace WpfApp1
 
         private void NextStep(object sender, RoutedEventArgs e)
         {
-            Districts_Text window3= new Districts_Text();
-            window3.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            window3.Show();
+            ///1. 启动rhinoCore
+            _rhinoCore = new RhinoCore(new string[] { "/NOSPLASH" }, Rhino.Runtime.InProcess.WindowStyle.Hidden);//不显示启动界面，隐藏窗口
+            SetRhinoView();
+            //界面
+            modeBox.ItemsSource = Rhino.Display.DisplayModeDescription.GetDisplayModes();
+
+            ////
+            //Districts_Text window3= new Districts_Text();
+            //window3.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            //window3.Show();
             //this.Hide();
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

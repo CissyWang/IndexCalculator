@@ -60,6 +60,7 @@
       <SubType>Designer</SubType>
     </Page>
     <Compile Include="Building.cs" />
+    <Compile Include="BuildingList.cs" />
     <Compile Include="SchoolType.cs" />
     <Compile Include="Xamls\ChartChange.xaml.cs">
       <DependentUpon>ChartChange.xaml</DependentUpon>
@@ -127,6 +128,12 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <EmbeddedResource Include="Resources\IndexChart.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\IndexChart-university.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\mustBuildings.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>

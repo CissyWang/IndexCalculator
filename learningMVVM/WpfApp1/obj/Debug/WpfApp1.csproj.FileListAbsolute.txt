@@ -135,3 +135,6 @@ E:\learningMVVM(1)\learningMVVM\WpfApp1\bin\Debug\System.Security.Cryptography.X
 E:\learningMVVM(1)\learningMVVM\WpfApp1\bin\Debug\System.Security.Principal.Windows.dll
 E:\learningMVVM(1)\learningMVVM\WpfApp1\bin\Debug\System.Text.Encoding.CodePages.dll
 E:\learningMVVM(1)\learningMVVM\WpfApp1\bin\Debug\Resources\IndexChart.xlsx
+E:\learningMVVM(1)\learningMVVM\WpfApp1\bin\Debug\Resources\IndexChart-university.xlsx
+E:\learningMVVM(1)\learningMVVM\WpfApp1\obj\Debug\WpfApp1.csproj.AssemblyReference.cache
+E:\learningMVVM(1)\learningMVVM\WpfApp1\bin\Debug\Resources\mustBuildings.xlsx

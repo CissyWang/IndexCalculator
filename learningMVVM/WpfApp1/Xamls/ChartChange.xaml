@@ -7,15 +7,17 @@
         mc:Ignorable="d"
         Title="ChartChange" Height="600" Width="900">
     <Grid>
-        <DataGrid x:Name="myDataGrid" AutoGenerateColumns="True" HorizontalAlignment="Center" VerticalAlignment="Center" Height="300"  ItemsSource="{Binding Model}">
+        <DataGrid x:Name="myDataGrid" AutoGenerateColumns="False" HorizontalAlignment="Center" VerticalAlignment="Center" Height="300"  ItemsSource="{Binding Model}">
             <DataGrid.Columns>
-                <!--<DataGridTextColumn Header="选配项目" Binding="{Binding Name}" Width="60"/>
-                <DataGridTextColumn Header="人均" Binding="{Binding Ztotal}" Width="50" />
-                <DataGridTextColumn Header="总建筑面积" Binding="{Binding TotalArea}" Width="80" />
-                <DataGridTextColumn Header="分区（同名称为同一分区）" Binding="{Binding DistrictName}" />
-                <DataGridTextColumn Header="层数" Binding="{Binding Level}" Width="40"/>
-                <DataGridTextColumn Header="密度" Binding="{Binding Density}" Width="40"/>
-                <DataGridTextColumn Header="面积浮动" Binding="{Binding AreaBias}" />-->
+                <DataGridTextColumn Header="必配项目" Binding="{Binding Name, Mode=OneWay}" />
+                <DataGridTextColumn Header="人均建筑面积" Binding="{Binding Area_per, Mode=OneWay}"  />
+                <DataGridTextColumn Header="分区" Binding="{Binding District_name}" />
+                <DataGridTextColumn Header="层数" Binding="{Binding Layer, Mode=TwoWay}" />
+                <DataGridTextColumn Header="密度" Binding="{Binding Density, Mode=TwoWay}" />
+                <DataGridTextColumn Header="总建筑面积" Binding="{Binding Area}" />
+
+                <DataGridTextColumn Header="面积调整" Binding="{Binding AreaBias}" />
+                <DataGridTextColumn Header="用地" Binding="{Binding Site_area}" />
             </DataGrid.Columns>
         </DataGrid>
         <Button Content="确认并返回" Click="Button_Click" Width="200" Height="50" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="350,511,350,0"/>
