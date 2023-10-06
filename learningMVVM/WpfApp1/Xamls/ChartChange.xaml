@@ -5,21 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1.Xamls"
         mc:Ignorable="d"
-        Title="ChartChange" Height="600" Width="900">
+        Title="ChartChange" Height="600" Width="900" Closing="Window_Closing">
     <Grid>
-        <DataGrid x:Name="myDataGrid" AutoGenerateColumns="False" HorizontalAlignment="Center" VerticalAlignment="Center" Height="300"  ItemsSource="{Binding Model}">
+        <DataGrid x:Name="myDataGrid" AutoGenerateColumns="False" HorizontalAlignment="Center" 
+                  VerticalAlignment="Center" CanUserAddRows="False"   ItemsSource="{Binding MustBuildings}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="必配项目" Binding="{Binding Name, Mode=OneWay}" />
+                <DataGridTextColumn Header=" " Binding="{Binding Index, Mode=OneTime}" Width="18"/>
+                <DataGridTextColumn Header="必配项目" Binding="{Binding Name, Mode=OneTime}" />
                 <DataGridTextColumn Header="人均建筑面积" Binding="{Binding Area_per, Mode=OneWay}"  />
                 <DataGridTextColumn Header="分区" Binding="{Binding District_name}" />
-                <DataGridTextColumn Header="层数" Binding="{Binding Layer, Mode=TwoWay}" />
-                <DataGridTextColumn Header="密度" Binding="{Binding Density, Mode=TwoWay}" />
+                <DataGridTextColumn Header="层数" Binding="{Binding Layer}" />
+                <DataGridTextColumn Header="密度" Binding="{Binding Density}" />
                 <DataGridTextColumn Header="总建筑面积" Binding="{Binding Area}" />
 
                 <DataGridTextColumn Header="面积调整" Binding="{Binding AreaBias}" />
                 <DataGridTextColumn Header="用地" Binding="{Binding Site_area}" />
             </DataGrid.Columns>
         </DataGrid>
-        <Button Content="确认并返回" Click="Button_Click" Width="200" Height="50" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="350,511,350,0"/>
+        <Button Content="更新"  Command="{Binding CheckBuildingsCommand}" CommandParameter="{Binding MustBuildings}" 
+                Width="200" Height="50" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="20"/>
     </Grid>
 </Window>

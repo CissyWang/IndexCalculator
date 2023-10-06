@@ -10,7 +10,7 @@ namespace WpfApp1
     {
         public Building()
         {
-
+            
         }
         double areaBias;
         public string Name { get; set; }
@@ -18,7 +18,12 @@ namespace WpfApp1
         public double Area_per { get; set; }
         public double Density { get; set; }
         public double Area { get; set; }
-        public double Site_area { get =>Math.Round( Area / Layer / Density * (1 + AreaBias),2); }
+
+        public void SetSiteArea()
+        {
+            Site_area = Math.Round(Area / Layer / Density * (1 + AreaBias), 2);
+        }
+        public double Site_area { get=> Math.Round(Area / Layer / Density * (1 + AreaBias), 2); set { } }
         public string District_name { get; set; }
         public double Floor_area { get => Area / Layer; }
         public int Index { get; set; }

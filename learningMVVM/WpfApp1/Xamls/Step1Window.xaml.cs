@@ -21,6 +21,7 @@ using Rhino.Display;
 using Rhino;
 using System.Runtime.InteropServices;
 using System.Windows.Interop;
+using Rhino.Geometry;
 
 namespace WpfApp1
 {
@@ -29,8 +30,6 @@ namespace WpfApp1
     /// </summary>
     public partial class Step1Window : Window
     {
-        public static string _myText = "会堂建筑面积 : 4800用地面积:6857";//
-        public static string _myText1 = "对外继续教育建筑面积 : 20000用地面积: 10000";//
         MainViewModel viewModel;
         public Step1Window()
         {
@@ -38,7 +37,6 @@ namespace WpfApp1
             viewModel = new MainViewModel();
             this.DataContext = viewModel;
             RhinoInside.Resolver.Initialize();
-            
         }
 
         #region SetRhinoView
@@ -48,7 +46,6 @@ namespace WpfApp1
         private IntPtr viewHandle = IntPtr.Zero;
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-
         }
         private void UnLoaded(object sender, RoutedEventArgs e)
         {
@@ -182,13 +179,7 @@ namespace WpfApp1
         {
             step3.Visibility = Visibility.Visible;
         }
-        private void StartCal(object sender, RoutedEventArgs e)
-        {
-            CalButton.Content = "重新配置";
-            ResAreaPanel.Visibility= Visibility.Visible;
-            BasicAreas.Text = _myText;
-            SelectiveAreas.Text= _myText1;
-        }
+
 
         private void NextStep(object sender, RoutedEventArgs e)
         {
@@ -198,16 +189,294 @@ namespace WpfApp1
             //界面
             modeBox.ItemsSource = Rhino.Display.DisplayModeDescription.GetDisplayModes();
 
-            ////
-            //Districts_Text window3= new Districts_Text();
-            //window3.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            //window3.Show();
-            //this.Hide();
+            doc = RhinoDoc.ActiveDoc;
+        }
+
+        RhinoDoc doc;
+        List<Rectangle3d> zones;
+        List<Guid> zonesGuid;
+        List<Guid> buildingsGuid;
+        int[] colorH;
+
+        bool IsFirst;
+        private void LoadModel(object sender, RoutedEventArgs e)
+        {
+            if (!IsFirst)
+            {
+                reload.Content = "重新加载";
+                IsFirst = true;
+            }
+                
+            colorH = new int[viewModel.Districts.Count];
+            for (int i = 0; i < colorH.Length; i++)
+            {
+                colorH[i] = 12 * i;
+            }
+            columnCount = (int)columnSlider.Value;
+            DrawZones();
+            dH = heightSlider.Minimum;
+            DrawBuildings();
+            doc.Views.Redraw();
+        }
+
+
+        private void DrawZones()
+        {
+            if (zonesGuid != null)
+            {
+                doc.Objects.Delete(zonesGuid, true);
+                zonesGuid = null;
+            }
+            zonesGuid = new List<Guid>();
+            //绘制分区
+            float width;
+            float height;
+            float height1;
+            float x = 0;
+            float y = 0;
+
+            float k = 1.5f;
+            int colorIndex = 0;
+
+
+            var districts = viewModel.Campus.Districts;
+
+            zones = new List<Rectangle3d>();
+            var attributes = new List<Rhino.DocObjects.ObjectAttributes>();
+
+            foreach (District d in districts)
+            {
+                width = 60;
+                height = (float)d.Site_area / width;
+
+                if (height > k * width)
+                {
+                    width = (float)Math.Sqrt(d.Site_area / k);
+                    height = k * width;
+                }
+                else if (k * height < width)
+                {
+                    height = (float)Math.Sqrt(d.Site_area / k);
+                    width = k * height;
+                }
+                //height1 = (float)floating * height;
+                height1 = (float)height;
+
+                int[] _color = HslToRgb(colorH[colorIndex % colorH.Length], 255, 150);
+                var attri = new Rhino.DocObjects.ObjectAttributes();
+                attri.ColorSource = Rhino.DocObjects.ObjectColorSource.ColorFromObject;
+
+                attri.ObjectColor = System.Drawing.Color.FromArgb(_color[0], _color[1], _color[2]);
+
+                var plane = new Plane(new Point3d(x, y, 0), Vector3d.ZAxis);
+                var rect = new Rectangle3d(plane, width, height);
+                zones.Add(rect);
+
+                var zone = Brep.CreateTrimmedPlane(plane, rect.ToNurbsCurve());
+                zonesGuid.Add(doc.Objects.AddBrep(zone, attri));
+                //zonesGuid.Add(doc.Objects.AddCurve(rect.ToNurbsCurve(), attri));
+                if (colorIndex>0&colorIndex % columnCount==0)//colorIndex>0&&colorIndex % 7==0
+                {
+                    x = 0;
+                    y += 550;
+                }
+                else
+                {
+                    x += width + 40;
+                }
+                colorIndex++;
+            }
+        }
+        private void DrawBuildings()
+        {
+            if (buildingsGuid != null)
+            {
+                doc.Objects.Delete(buildingsGuid, true);
+                buildingsGuid = null;
+            }
+            buildingsGuid = new List<Guid>();
+            var districts = viewModel.Campus.Districts;
+            
+            int colorIndex = 0;
+            for (int i = 0; i < districts.Count; i++)
+            {
+
+                if (districts[i].Buildings == null)
+                {
+                    continue;
+                }
+
+                var attriB = new Rhino.DocObjects.ObjectAttributes();
+                int[] color2 = HslToRgb(colorH[colorIndex % colorH.Length], 255, 180);
+                attriB.ColorSource = Rhino.DocObjects.ObjectColorSource.ColorFromObject;
+                attriB.ObjectColor = System.Drawing.Color.FromArgb(color2[0], color2[1], color2[2]);
+
+                double dist = 10;
+                double y1= 10;
+                foreach (Building b in districts[i].Buildings)
+                {
+                    double width1 = zones[i].Width - dist * 2;//X宽度
+                    double length = (float)b.Floor_area / width1;//Y宽度
+
+                    if (length < 3)
+                    {
+                        length = 3;
+                        width1 = (float)b.Floor_area / 3;
+                    }
+
+                    //底层轮廓线
+                    var origin = new Point3d(zones[i].Center.X - width1 / 2, zones[i].Center.Y - zones[i].Height / 2 + y1, 0);
+                    var plane = new Plane(origin, Vector3d.ZAxis);
+                    var rect = new Rectangle3d(plane, width1, length);
+                    var brep = Brep.CreateTrimmedPlane(plane, rect.ToNurbsCurve());
+                    var line = new LineCurve(origin, new Point3d(zones[i].Center.X - width1 / 2, zones[i].Center.Y - zones[i].Height / 2 + y1,dH));
+                    //每层体块
+                    for (int floor = 0; floor < b.Layer; floor++)
+                    {
+                        
+                        
+                        var stack = brep.Faces[0].CreateExtrusion(line, true);
+                        buildingsGuid.Add(doc.Objects.AddBrep(stack, attriB));
+                        brep.Translate(new Vector3d(0, 0, dH));
+                    }
+                    y1 += length + dist;
+                }
+
+                colorIndex++;
+            }
+        }
+        public static int[] HslToRgb(double Hue, double Saturation, double Lightness)
+        {
+            if (Hue < 0) Hue = 0.0;
+            if (Saturation < 0) Saturation = 0.0;
+            if (Lightness < 0) Lightness = 0.0;
+            if (Hue >= 360) Hue = 359.0;
+            if (Saturation > 255) Saturation = 255;
+            if (Lightness > 255) Lightness = 255;
+            Saturation = Saturation / 255.0;
+            Lightness = Lightness / 255.0;
+            double C = (1 - Math.Abs(2 * Lightness - 1)) * Saturation;
+            double hh = Hue / 60.0;
+            double X = C * (1 - Math.Abs(hh % 2 - 1));
+            double r = 0, g = 0, b = 0;
+            if (hh >= 0 && hh < 1)
+            {
+                r = C;
+                g = X;
+            }
+            else if (hh >= 1 && hh < 2)
+            {
+                r = X;
+                g = C;
+            }
+            else if (hh >= 2 && hh < 3)
+            {
+                g = C;
+                b = X;
+            }
+            else if (hh >= 3 && hh < 4)
+            {
+                g = X;
+                b = C;
+            }
+            else if (hh >= 4 && hh < 5)
+            {
+                r = X;
+                b = C;
+            }
+            else
+            {
+                r = C;
+                b = X;
+            }
+            double m = Lightness - C / 2;
+            r += m;
+            g += m;
+            b += m;
+            r = r * 255.0;
+            g = g * 255.0;
+            b = b * 255.0;
+            r = Math.Round(r);
+            g = Math.Round(g);
+            b = Math.Round(b);
+
+            return new int[3] { (int)r, (int)g, (int)b };
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
+        }
+        bool isClick = false;
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (isClick == false)
+            {
+                btn1.Content = "再次核验";
+                isClick = true;
+            }
+        }
+
+        ChartChange chartWindow1;
+
+        private void SetMustBuilding_Click(object sender, RoutedEventArgs e)
+        {
+            bool go = true;
+            if (chartWindow1 != null)
+            {
+                if (!chartWindow1.canOpen)
+                    go = false;
+            }
+            if (go)
+            {
+                chartWindow1 = new ChartChange(viewModel);
+                chartWindow1.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                chartWindow1.Show();
+            }
+        }
+
+        ChartChange2 chartWindow2;
+        private void SetOptionalBuilding_Click(object sender, RoutedEventArgs e)
+        {
+            bool go = true;
+            if (chartWindow1 != null)
+            {
+                if (!chartWindow1.canOpen)
+                    go = false;
+            }
+            if (go)
+            {
+                chartWindow2 = new ChartChange2(viewModel);
+                chartWindow2.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                chartWindow2.Show();
+            }
+        }
+
+        private void ShowDistrictGrid(object sender, RoutedEventArgs e)
+        {
+            districtGrid.Visibility = Visibility.Visible;
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        double dH;
+        int columnCount;
+        private void Building_Refresh(object sender, RoutedEventArgs e)
+        {
+            dH = heightSlider.Value;
+            DrawBuildings();
+            doc.Views.ActiveView.Redraw();
+        }
+
+        private void Zones_Refresh(object sender, RoutedEventArgs e)
+        {
+            columnCount = (int)columnSlider.Value;
+            DrawZones();
+            DrawBuildings();
+            doc.Views.ActiveView.Redraw();
         }
     }
 }

@@ -14,15 +14,15 @@ namespace WpfApp1
 
         public BuildingList()
         {
-            this.Buildings = new ObservableCollection<Building>();
+            this.Buildings = new ObservableCollection<Building>(); 
         }
 
-        internal int AddBuilding(Building addBuilding)
-        {
-            //buildings.Add(addBuilding);
-            Buildings.Insert(this.Count, addBuilding);
-            return this.Count;
-        }
+        //internal int AddBuilding(Building addBuilding)
+        //{
+        //    //buildings.Add(addBuilding);
+        //    Buildings.Insert(this.Count, addBuilding);
+        //    return this.Count;
+        //}
         internal void Add(Building addBuilding)
         {
             Buildings.Add(addBuilding);
@@ -40,6 +40,18 @@ namespace WpfApp1
                 return area_all;
             }
             }
+        public double SiteArea
+        {
+            get
+            {
+                double area_all = 0;
+                for (int i = 0; i < this.Count; i++)
+                {
+                    area_all += this[i].Site_area;
+                }
+                return area_all;
+            }
+        }
 
         //像数组一样返回元素
         public Building this[int index]
@@ -51,6 +63,19 @@ namespace WpfApp1
             internal set
             {
                 this.Buildings[index] = value;
+            }
+        }
+
+        public double FloorArea
+        {
+            get
+            {
+                double floorArea=0;
+                foreach(Building b in buildings)
+                {
+                    floorArea += b.Floor_area;
+                }
+                return floorArea;
             }
         }
 

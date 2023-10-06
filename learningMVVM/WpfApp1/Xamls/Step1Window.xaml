@@ -9,14 +9,15 @@
     <Window.Resources>
         <Style TargetType="TextBlock" >
             <Setter Property="Height" Value="15"/>
+            <Setter Property="Margin" Value="0,5"/>
         </Style>
         <Style TargetType="TextBox" >
-            <Setter Property="Width" Value="100"/>
+            <Setter Property="Width" Value="85"/>
             <Setter Property="Background" Value="White"/>
         </Style>
         <Style TargetType="Button" >
             <Setter Property="Background" Value="White"/>
-            <Setter Property="Margin" Value="10,5"/>
+            <Setter Property="Margin" Value="0,5"/>
         </Style>
     </Window.Resources>
     <Grid>
@@ -44,7 +45,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </ComboBox>
-                            <Button Content="查看" Command="{Binding OpenRegChartCommand}"/>
+                            <Button Content="查看" Command="{Binding OpenRegChartCommand}" />
                         </StackPanel>
 
                         <Grid>
@@ -71,21 +72,20 @@
                             <TextBox   Name ="用地面积"  Text="{Binding SiteArea}" Grid.Column="1" Grid.Row="1" Margin="0,5"/>
                             <TextBox  Text="{Binding Population}" Grid.Column="1" Grid.Row="2" Margin="0,5"/>
                             <TextBox  Text="{Binding PlotRatio}" Grid.Column="1" Grid.Row="4" Margin="0,5"/>
-                            <TextBlock Text="{Binding ExaminePopulationResult}" FontStyle="Italic" Foreground="Red" FontSize="10" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" />
+                            <TextBlock Text="{Binding ExaminePopulationResult}" Margin="0,0"
+                                       FontStyle="Italic" Foreground="Red" FontSize="10" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" />
                             <TextBlock Text="(㎡)" Grid.Column="2" Grid.Row="1"/>
-                            <TextBlock Text="{Binding ExamineRatioResult}" FontStyle="Italic" FontSize="10" Foreground="Green" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="5"/>
-                            <!--<CheckBox Command="{Binding ExaminePopulationCommand}"  Grid.Column="2" Grid.Row="2" VerticalAlignment="Center"/>
-                            <CheckBox  Command="{Binding ExamineRatioCommand}" Grid.Column="2" Grid.Row="4" VerticalAlignment="Center"/>-->
+                            <TextBlock Text="{Binding ExamineRatioResult}" Margin=" 0,0" FontStyle="Italic" FontSize="10" Foreground="Green" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="5"/>
                         </Grid>
-                        <Button Content="核验" Command="{Binding ExaminePopulationCommand}"/>
-                        <Button Content="计算总体指标" Click="ShowStep2" />
+                        <Button Name="btn1" Content="核验" Click ="Button_Click" Command="{Binding ExamineCommand}"/>
+                        <Button Content="计算总体指标" Click="ShowStep2" Command="{Binding Confirm1Command}"/>
                     </StackPanel>
 
                     <!--Step2  Visibility="Hidden"-->
-                    <StackPanel x:Name="step2" Margin="0,10" >
+                    <StackPanel x:Name="step2" >
                         <TextBlock  Text="总体指标"  Height="20" FontWeight="Black"/>
 
-                        <StackPanel Orientation="Horizontal" Margin="0,5">
+                        <StackPanel Orientation="Horizontal" >
                             <TextBlock x:Name="res1" Text="目标总建筑面积"/>
                             <TextBlock Text="{Binding AreaTarget}" Width="100" Margin="10,0" HorizontalAlignment="Center"/>
                             <TextBlock Text="㎡"/>
@@ -99,7 +99,7 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
-                                <ColumnDefinition Width="20"/>
+                                <ColumnDefinition Width="25"/>
                             </Grid.ColumnDefinitions>
                             <StackPanel Orientation="Vertical" Grid.Column="0">
                                 <TextBlock Text="生均校舍面积" Margin="0,5" />
@@ -114,14 +114,17 @@
                                 <TextBlock Text="{Binding SportsSiteArea}"/>
                             </StackPanel>
                             <StackPanel Orientation="Vertical"  Grid.Column="2">
-                                <TextBlock Margin="0,5" />
-                                <CheckBox Grid.Column="2"  HorizontalAlignment="Center" Command="{Binding ConfirmCommand}" />
+                                <TextBlock />
+                                <Button Grid.Column="2" BorderBrush="Transparent" Background="Transparent" HorizontalAlignment="Center" 
+                                        Command="{Binding ResetCommand}"   Margin="0,0" >
+                                    <Image Source="/Resources/refresh.png"/>
+                                </Button>
                             </StackPanel>
                         </Grid>
-                        <Button Content="下一步" Click="ShowStep3" Background="White"/>
+                        <Button Content="下一步" Click="ShowStep3" Command="{Binding SetBuildingsCommand}" Background="White"/>
                     </StackPanel>
                     <!--Step3 Visibility="Hidden"-->
-                    <StackPanel Name="step3"  Margin="0,10">
+                    <StackPanel Name="step3"   >
                         <TextBlock  Text="建筑项目"  Height="20" FontWeight="Black"/>
                         <Grid >
                             <Grid.ColumnDefinitions>
@@ -129,11 +132,22 @@
                                 <ColumnDefinition Width="10"/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-                            <Button Grid.Column="0" Content="必配项目" Command="{Binding SetMustCommand}"  VerticalAlignment="Top" Height="60" Background="AliceBlue" />
-                            <Button  Grid.Column="2" Content="选配项目" Command="{Binding SetOptionalCommand}" VerticalAlignment="Top"  Height="60" Background="AntiqueWhite" />
+                            <Button Grid.Column="0" Content="Reset&#13;必配项目" HorizontalContentAlignment="Center" Click="SetMustBuilding_Click"  VerticalAlignment="Top" Height="60" Background="AliceBlue"  />
+                            <Button  Grid.Column="2" Content="Reset&#13;选配项目" Click="SetOptionalBuilding_Click" VerticalAlignment="Top"  Height="60" Background="AntiqueWhite" />
+
                         </Grid>
-                        <Button x:Name="CalButton"  Content="配置分区" Click="StartCal"  />
-                        <Button  Content="加载三维模型" Click="NextStep"  VerticalAlignment="Top" />
+                        <StackPanel Orientation="Horizontal" >
+                            <TextBlock Text="待分配用地面积" />
+                            <TextBlock Text="{Binding RestBuildingSiteArea}" Width="100" Margin="10,0"/>
+                            <TextBlock Text="㎡"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" >
+                            <TextBlock Text="待分配建筑面积"/>
+                            <TextBlock Text="{Binding RestArea}" Width="100" Margin="10,0"/>
+                            <TextBlock Text="㎡"/>
+                        </StackPanel>
+                        <Button  x:Name="CalButton"  Content="配置分区" Click="ShowDistrictGrid" 
+                                    Command="{Binding SetDistrictCommand}" Width="103" />
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
@@ -164,21 +178,61 @@
                 <Border BorderBrush="LightSkyBlue" Grid.Column="1" BorderThickness="2.5">
                     <StackPanel Margin="10" Orientation="Vertical">
                         <!--以下可以改成页面切换：建筑属性表、分区属性表-->
+                        <DataGrid Name="districtGrid" AutoGenerateColumns="False" HorizontalAlignment="Center" FontSize="10" Height="200"
+                  VerticalAlignment="Center" CanUserAddRows="False"   ItemsSource="{Binding Districts}" Background="Transparent">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header=" " Binding="{Binding Index, Mode=OneWay}" Width="18"/>
+                                <DataGridTextColumn Header="名称" Binding="{Binding Name, Mode=OneWay}" />
+                                <DataGridTextColumn Header="面积" Binding="{Binding Site_area, Mode=OneWay}"  />
+                                <DataGridTextColumn Header="容积率" Binding="{Binding PlotRatio, Mode=OneWay}" />
+                                <!--<DataGridTextColumn Header="平均层数" Binding="{Binding Layer, Mode=OneWay}" />-->
+                                <DataGridTextColumn Header="密度" Binding="{Binding Density, Mode=OneWay}" />
+                                <DataGridTextColumn Header="总建筑面积" Binding="{Binding BuildingArea, Mode=OneWay}" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <Button Content="初始化三维模型"  Margin="5"  Click="NextStep" />
+                        <Button Name ="reload" Content =" 加载" Click="LoadModel" Margin="5"/>
                         <TextBlock  Text=""  Height="20"/>
-                        <TextBlock  Text="必配建筑项目面积" FontWeight="Black" />
-                        <TextBlock x:Name="BasicAreas" Height="38" Margin="0,0,-0.333,0"/>
-                        <TextBlock  Text="选配建筑项目面积" FontWeight="Black"/>
-                        <TextBlock x:Name="SelectiveAreas" Height="36" Margin="0,0,-0.333,0"/>
+                        <TextBlock  Text="实际总指标" FontWeight="Black" />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0">
+                                <TextBlock Text="实际总建筑面积"/>
+                                <TextBlock Text="实际容积率"/>
+                                <TextBlock Text="实际建筑密度"/>
+                                <TextBlock Text="校舍面积冗余"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1">
+                                <TextBlock Text="{Binding reArea}" />
+                                <TextBlock Text="{Binding rePlotRatio}"/>
+                                <TextBlock Text="{Binding reDensity}"/>
+                                <TextBlock Text="{Binding siteAreaBias}"/>
+                            </StackPanel>
+                        </Grid>
+                        
                         <TextBlock Text="三维显示参数" FontWeight="Black" Margin="0,10"/>
+                        
                         <StackPanel Orientation="Horizontal" Margin="0,10">
-                            <TextBlock Text="层高" />
-                            <Slider Width="160" VerticalAlignment="Center" Margin="10,0" />
-                            <TextBlock Width="20"/>
+                            <TextBlock Text="层高" Margin="0,0,10,0"/>
+                            <Slider Name ="heightSlider" Width="140" VerticalAlignment="Center" IsSnapToTickEnabled="True" 
+                                     Minimum="3" Maximum="6" TickFrequency="0.1" />
+                            <TextBlock Width="20" TextAlignment="Center" Text="{Binding ElementName=heightSlider, Path=Value,UpdateSourceTrigger=PropertyChanged}"/>
+                            <Button Width="20" Click="Building_Refresh" BorderThickness="0">
+                                <Image Source="/Resources/refresh.png"/>
+                            </Button>
+
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,10">
-                            <TextBlock Text="列数" />
-                            <Slider Width="160" VerticalAlignment="Center" Margin="10,0" />
-                            <TextBlock Width="20"/>
+                            <TextBlock Text="列数" Margin="0,0,10,0"/>
+                            <Slider Name ="columnSlider" Width="140" VerticalAlignment="Center" Maximum="10" 
+                                    Minimum="2" TickFrequency="1" IsSnapToTickEnabled="True" Value=" 5"/>
+                            <TextBlock Width="20" TextAlignment="Center" Text="{Binding ElementName=columnSlider, Path=Value,UpdateSourceTrigger=PropertyChanged}"/>
+                            <Button Width="20" Click="Zones_Refresh" BorderThickness="0">
+                                <Image Source="/Resources/refresh.png"/>
+                            </Button>
                         </StackPanel>
                     </StackPanel>
                 </Border>

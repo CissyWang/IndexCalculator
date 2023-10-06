@@ -136,5 +136,8 @@ E:\learningMVVM(1)\learningMVVM\WpfApp1\bin\Debug\System.Security.Principal.Wind
 E:\learningMVVM(1)\learningMVVM\WpfApp1\bin\Debug\System.Text.Encoding.CodePages.dll
 E:\learningMVVM(1)\learningMVVM\WpfApp1\bin\Debug\Resources\IndexChart.xlsx
 E:\learningMVVM(1)\learningMVVM\WpfApp1\bin\Debug\Resources\IndexChart-university.xlsx
-E:\learningMVVM(1)\learningMVVM\WpfApp1\obj\Debug\WpfApp1.csproj.AssemblyReference.cache
 E:\learningMVVM(1)\learningMVVM\WpfApp1\bin\Debug\Resources\mustBuildings.xlsx
+E:\learningMVVM(1)\learningMVVM\WpfApp1\obj\Debug\Xamls\ChartChange2.g.cs
+E:\learningMVVM(1)\learningMVVM\WpfApp1\obj\Debug\Xamls\ChartChange2.baml
+E:\learningMVVM(1)\learningMVVM\WpfApp1\obj\Debug\WpfApp1.csproj.AssemblyReference.cache
+E:\learningMVVM(1)\learningMVVM\WpfApp1\bin\Debug\Resources\optionalBuildings.xlsx

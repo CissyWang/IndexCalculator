@@ -1,4 +1,4 @@
-name(按照优先级）,area,District,layer,density,
+name(按照优先级,area,District,layer,density,
 实验研究用房(硕博),9800,专业教学实训,5,0.4,
 图书馆(硕博),3500,图书馆,5,0.4,
 研究生校舍,40000,学生宿舍,5,0.25,
