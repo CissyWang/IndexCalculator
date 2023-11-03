@@ -4,11 +4,11 @@
 winexe
 C#
 .cs
-E:\GitFile\VS\IndexCalculator\WpfApp2\WpfApp2\obj\Debug\
+E:\GitFile\VS\IndexCalculator\WpfApp2\WpfApp2\obj\Release\
 WpfApp2
 none
 false
-DEBUG;TRACE
+TRACE
 E:\GitFile\VS\IndexCalculator\WpfApp2\WpfApp2\App.xaml
 1219584333
 
