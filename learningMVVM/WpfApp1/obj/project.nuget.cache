@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "AL+l7scS945/LXM4eVRqQE6pnpLHJigSq9n6qAsCV6+1HyRELrz38J34Pmf4imY6hGfbryYOO5ZWh7cYfKGRoQ==",
+  "dgSpecHash": "0YXN56NggGRfnf8Gc+1ssRNnrBPRnSMFs7tXjMbKKiOaGNj3auJExVbxhoifMqERafyjACSGrojdduhHR+fifw==",
   "success": true,
-  "projectFilePath": "E:\\learningMVVM(1)\\learningMVVM\\WpfApp1\\WpfApp1.csproj",
+  "projectFilePath": "E:\\grasshopper_C#\\IndexCalculator-WPF\\learningMVVM\\WpfApp1\\WpfApp1.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Administrator\\.nuget\\packages\\bouncycastle.cryptography\\2.2.1\\bouncycastle.cryptography.2.2.1.nupkg.sha512",
     "C:\\Users\\Administrator\\.nuget\\packages\\commonservicelocator\\2.0.7\\commonservicelocator.2.0.7.nupkg.sha512",
@@ -12,6 +12,7 @@
     "C:\\Users\\Administrator\\.nuget\\packages\\microsoft.io.recyclablememorystream\\2.3.2\\microsoft.io.recyclablememorystream.2.3.2.nupkg.sha512",
     "C:\\Users\\Administrator\\.nuget\\packages\\mvvmlight\\5.4.1.1\\mvvmlight.5.4.1.1.nupkg.sha512",
     "C:\\Users\\Administrator\\.nuget\\packages\\mvvmlightlibs\\5.4.1.1\\mvvmlightlibs.5.4.1.1.nupkg.sha512",
+    "C:\\Users\\Administrator\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\Administrator\\.nuget\\packages\\npoi\\2.6.2\\npoi.2.6.2.nupkg.sha512",
     "C:\\Users\\Administrator\\.nuget\\packages\\rhino.inside\\7.0.0\\rhino.inside.7.0.0.nupkg.sha512",
     "C:\\Users\\Administrator\\.nuget\\packages\\rhinocommon\\7.0.20314.3001\\rhinocommon.7.0.20314.3001.nupkg.sha512",

@@ -1,11 +1,10 @@
-﻿using GalaSoft.MvvmLight;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WpfApp1
+namespace CampusClass
 {
     //增加功能可以查当前的总体规范
     public class SchoolType

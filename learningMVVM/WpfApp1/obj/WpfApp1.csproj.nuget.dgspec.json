@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\learningMVVM(1)\\learningMVVM\\WpfApp1\\WpfApp1.csproj": {}
+    "E:\\grasshopper_C#\\IndexCalculator-WPF\\learningMVVM\\WpfApp1\\WpfApp1.csproj": {}
   },
   "projects": {
-    "E:\\learningMVVM(1)\\learningMVVM\\WpfApp1\\WpfApp1.csproj": {
+    "E:\\grasshopper_C#\\IndexCalculator-WPF\\learningMVVM\\WpfApp1\\WpfApp1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\learningMVVM(1)\\learningMVVM\\WpfApp1\\WpfApp1.csproj",
+        "projectUniqueName": "E:\\grasshopper_C#\\IndexCalculator-WPF\\learningMVVM\\WpfApp1\\WpfApp1.csproj",
         "projectName": "WpfApp1",
-        "projectPath": "E:\\learningMVVM(1)\\learningMVVM\\WpfApp1\\WpfApp1.csproj",
+        "projectPath": "E:\\grasshopper_C#\\IndexCalculator-WPF\\learningMVVM\\WpfApp1\\WpfApp1.csproj",
         "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "E:\\learningMVVM(1)\\learningMVVM\\WpfApp1\\obj\\",
+        "outputPath": "E:\\grasshopper_C#\\IndexCalculator-WPF\\learningMVVM\\WpfApp1\\obj\\",
         "projectStyle": "PackageReference",
         "skipContentFileWrite": true,
         "configFilePaths": [
@@ -49,6 +49,10 @@
             "NPOI": {
               "target": "Package",
               "version": "[2.6.2, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
             },
             "Rhino.Inside": {
               "target": "Package",

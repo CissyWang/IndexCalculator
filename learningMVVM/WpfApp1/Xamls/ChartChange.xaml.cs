@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WpfApp1.ViewModel;
 
 namespace WpfApp1.Xamls
 {
@@ -21,24 +22,42 @@ namespace WpfApp1.Xamls
     public partial class ChartChange : Window
     {
 
-        Campus campus;
-        public ChartChange(Campus campus)
+        //internal bool canOpen;
+        public ChartChange(MainViewModel mainViewModel)
         {
-            this.campus = campus;
+            //this.campus = viewModel.Campus;
             InitializeComponent();
-            this.DataContext = new
-            {
-                Model = campus.MustBuildings.Buildings
-            };
+            this.DataContext = mainViewModel;
         }
 
-
-
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void myDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (campus.MustBuildings.Area > campus.AreaTarget)
-                MessageBox.Show("必配项超出");
-            this.Close();
+
         }
+
+        //private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        //{
+        //    canOpen = true;
+        //}
+
+
+
+
+
+
+
+        //private void Button_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if (campus.MustBuildings.Area < campus.AreaTarget && campus.MustBuildings.SiteArea < campus.BuildingSiteArea)
+        //    {
+        //        this.Close();
+        //        return;
+        //    }
+
+        //    var r = MessageBox.Show("必配项总面积超出限制，请调整", "提示", MessageBoxButton.OKCancel);
+        //    if (r == MessageBoxResult.Cancel)
+        //        this.Close();
+        //    //}
+        //}
     }
 }

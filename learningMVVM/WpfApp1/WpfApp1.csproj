@@ -38,6 +38,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CampusClass">
+      <HintPath>..\..\CampusClass\CampusClass\bin\Debug\CampusClass.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -59,11 +62,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="Building.cs" />
-    <Compile Include="BuildingList.cs" />
-    <Compile Include="SchoolType.cs" />
     <Compile Include="Xamls\ChartChange.xaml.cs">
       <DependentUpon>ChartChange.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Xamls\ChartChange2.xaml.cs">
+      <DependentUpon>ChartChange2.xaml</DependentUpon>
     </Compile>
     <Compile Include="Xamls\Districts_Text.xaml.cs">
       <DependentUpon>Districts_Text.xaml</DependentUpon>
@@ -76,6 +79,10 @@
     </Compile>
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Page Include="Xamls\ChartChange.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Xamls\ChartChange2.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -95,7 +102,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Campus.cs" />
     <Compile Include="Xamls\Step1Window.xaml.cs">
       <DependentUpon>Step1Window.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -128,14 +134,14 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <EmbeddedResource Include="Resources\IndexChart.xlsx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\IndexChart-university.xlsx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\mustBuildings.xlsx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    <None Include="Resources\BuildingList.xlsx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -165,12 +171,18 @@
     <PackageReference Include="MvvmLightLibs">
       <Version>5.4.1.1</Version>
     </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>13.0.3</Version>
+    </PackageReference>
     <PackageReference Include="NPOI">
       <Version>2.6.2</Version>
     </PackageReference>
     <PackageReference Include="Rhino.Inside">
       <Version>7.0.0</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\refresh.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
