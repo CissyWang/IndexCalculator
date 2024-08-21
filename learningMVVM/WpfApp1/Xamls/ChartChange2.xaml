@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1.Xamls"
         mc:Ignorable="d"
-        Title="ChartChange2" Height="450" Width="800">
+        Title="ChartChange2" Height="450" Width="800" WindowStyle="None">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
@@ -15,8 +15,9 @@
         <DataGrid x:Name="myDataGrid" AutoGenerateColumns="False" HorizontalAlignment="Center" VerticalAlignment="Center" Height="300"
                   ItemsSource="{Binding OptionalBuildings}" CanUserDeleteRows="True" CanUserAddRows="True">
             <DataGrid.Columns>
+                <DataGridTextColumn Header="编号" Binding="{Binding Index}" />
                 <DataGridTextColumn Header="选配项目" Binding="{Binding Name}" />
-                <DataGridTextColumn Header="分区" Binding="{Binding District_name}" />
+                <DataGridTextColumn Header="分区" Binding="{Binding Zone_name}" />
                 <DataGridTextColumn Header="层数" Binding="{Binding Layer, Mode=TwoWay}" />
                 <DataGridTextColumn Header="密度" Binding="{Binding Density, Mode=TwoWay}" />
                 <DataGridTextColumn Header="总建筑面积" Binding="{Binding Area}" />

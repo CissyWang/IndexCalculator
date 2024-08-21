@@ -28,8 +28,6 @@ namespace WpfApp1.Xamls
             this.DataContext = mainViewModel;
         }
 
-
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             //if (campus.MustBuildings.Area > campus.AreaTarget)

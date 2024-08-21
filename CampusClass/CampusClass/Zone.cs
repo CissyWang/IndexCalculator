@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WpfApp1
+namespace CampusClass
 {
-    public class District
+    public class Zone
     {
-        public District()
+        public Zone()
         {
         }
 

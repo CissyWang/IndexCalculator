@@ -5,12 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1.Xamls"
         mc:Ignorable="d"
-        Title="ChartChange" Height="600" Width="900" Closing="Window_Closing">
+        Title="ChartChange" Height="600" Width="900"  WindowStyle="None">
     <Grid>
-        <DataGrid x:Name="myDataGrid" AutoGenerateColumns="False" HorizontalAlignment="Center" 
-                  VerticalAlignment="Center" CanUserAddRows="False"   ItemsSource="{Binding MustBuildings}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="740*"/>
+            <ColumnDefinition Width="25*"/>
+            <ColumnDefinition Width="120*"/>
+            <ColumnDefinition Width="8*"/>
+        </Grid.ColumnDefinitions>
+        <DataGrid x:Name="myDataGrid" AutoGenerateColumns="False" HorizontalAlignment="Center" Height="300"
+                  VerticalAlignment="Center" CanUserAddRows="False"   ItemsSource="{Binding MustBuildings}"  CanUserDeleteRows="True" SelectionChanged="myDataGrid_SelectionChanged">
             <DataGrid.Columns>
-                <DataGridTextColumn Header=" " Binding="{Binding Index, Mode=OneTime}" Width="18"/>
+                <DataGridTextColumn Header="编号" Binding="{Binding Index, Mode=OneTime}" />
                 <DataGridTextColumn Header="必配项目" Binding="{Binding Name, Mode=OneTime}" />
                 <DataGridTextColumn Header="人均建筑面积" Binding="{Binding Area_per, Mode=OneWay}"  />
                 <DataGridTextColumn Header="分区" Binding="{Binding District_name}" />
@@ -23,6 +29,6 @@
             </DataGrid.Columns>
         </DataGrid>
         <Button Content="更新"  Command="{Binding CheckBuildingsCommand}" CommandParameter="{Binding MustBuildings}" 
-                Width="200" Height="50" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="20"/>
+                Width="200" Height="50" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="347,0,193,19.667"/>
     </Grid>
 </Window>

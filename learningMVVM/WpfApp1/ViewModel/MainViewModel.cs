@@ -1,5 +1,6 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using Microsoft.Win32;
 using NPOI.HSSF.UserModel;
 using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
@@ -12,8 +13,12 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Threading;
 using WpfApp1.Xamls;
+using Newtonsoft.Json;
+using CampusClass;
+using System.Windows.Controls;
 
 namespace WpfApp1.ViewModel
 {
@@ -33,6 +38,7 @@ namespace WpfApp1.ViewModel
     public class MainViewModel : ViewModelBase
     {
         private Campus campus;
+        DataTable dt, dt2;
 
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
@@ -49,29 +55,37 @@ namespace WpfApp1.ViewModel
             CheckBuildingsCommand = new RelayCommand<ObservableCollection<Building>>(this.CheckBuildings);
             SelectCtypeChangedCommand = new RelayCommand(this.SelectCtypeChanged);
             SetDistrictCommand = new RelayCommand(this.SetDistrict);
+            ExportCommand = new RelayCommand<DataGrid>(this.Export);
+
             CTypeList.Add("普通高等学校", "Resources/IndexChart-university.xlsx");
             CTypeList.Add("高等职业学校", "Resources/IndexChart.xlsx");
         }
 
-        public RelayCommand ExamineCommand { get; set;}
-        public RelayCommand ResetCommand { get; set;}
-        public RelayCommand OpenRegChartCommand { get; set;}
-        public RelayCommand<ObservableCollection<Building>> CheckBuildingsCommand { get; set;}
-        public RelayCommand SelectCtypeChangedCommand { get; set;}
+        #region command
+        public RelayCommand ExamineCommand { get; set; }
+        public RelayCommand ResetCommand { get; set; }
+        public RelayCommand OpenRegChartCommand { get; set; }
+        public RelayCommand<ObservableCollection<Building>> CheckBuildingsCommand { get; set; }
+        public RelayCommand SelectCtypeChangedCommand { get; set; }
         public RelayCommand Confirm1Command { get; set; }
         public RelayCommand SetBuildingsCommand { get; set; }
         public RelayCommand SetDistrictCommand { get; set; }
-        public SchoolType SchoolType { get => Campus.Type; set { Campus.Type = value; RaisePropertyChanged(); } }
-        public int Population { get => Campus.Population; set { Campus.Population = value > 0 ? value : 0; RaisePropertyChanged(); } }
-        public double PlotRatio { get => Campus.PlotRatio; set { Campus.PlotRatio = value > 0 ? value : 0; RaisePropertyChanged(); } }
-        public double SiteArea { get => Campus.SiteArea; set { Campus.SiteArea = value > 0 ? value : 0; RaisePropertyChanged(); } }
+        public RelayCommand<DataGrid> ExportCommand { get; set; }
 
-        public double SiteAreaPer_Limit { get => Campus.SiteAreaPer_Limit; set { Campus.SiteAreaPer_Limit = value; RaisePropertyChanged(); } }
+        #endregion
 
+        public double SiteAreaPer_Limit { get => Math.Round(Campus.SiteAreaPer_Limit, 2); set { Campus.SiteAreaPer_Limit = value; RaisePropertyChanged(); } }
+
+        # region 输出值
         double areaTarget;
         double siteAreaPer;
+        public double AreaTarget { get => areaTarget; set { areaTarget = value; RaisePropertyChanged(); } }
+        public double SiteAreaPer { get => siteAreaPer; set { siteAreaPer = value; RaisePropertyChanged(); } }
+
         private double buildingSiteArea;
         private double sportsSiteArea;
+        public double BuildingSiteArea { get => buildingSiteArea; set { buildingSiteArea = value; RaisePropertyChanged(); } }
+        public double SportsSiteArea { get => sportsSiteArea; set { sportsSiteArea = value; RaisePropertyChanged(); } }
 
         string examinePopulationResult;
         string examineRatioResult;
@@ -81,14 +95,33 @@ namespace WpfApp1.ViewModel
             set { examinePopulationResult = value; RaisePropertyChanged(); }
         }
         public string ExamineRatioResult { get => examineRatioResult; set { examineRatioResult = value; RaisePropertyChanged(); } }
-        public Dictionary<string, string> CTypeList { get; set; } = new Dictionary<string, string>();
 
-        private ObservableCollection<SchoolType> schoolTypeList;
-        public ObservableCollection<SchoolType> SchoolTypeList { get => schoolTypeList; set { schoolTypeList = value; RaisePropertyChanged(); } }
+        double restArea, restBuildingSiteArea;
+        public double RestArea { get => restArea; set { restArea = value; RaisePropertyChanged(); } }
+        public double RestBuildingSiteArea { get => Math.Round(restBuildingSiteArea, 2); set { restBuildingSiteArea = value; RaisePropertyChanged(); } }
+        double reArea;
+        double reDensity;
+        double rePlotRatio;
+        double siteAreaBias;
+        public double ReArea { get => Campus.Area; set { reArea = value; RaisePropertyChanged(); } }
+        public double RePlotRatio { get => Math.Round(Campus.PlotRatio, 3); set { rePlotRatio = value; RaisePropertyChanged(); } }
+        public double ReDensity { get => Math.Round(Campus.Density, 2); set { reDensity = value; RaisePropertyChanged(); } }
+        public double SiteAreaBias { get => Math.Round(Campus.SiteAreaBias, 2); set { siteAreaBias = value; RaisePropertyChanged(); } }
+        #endregion
 
-        public double AreaTarget { get => areaTarget; set { areaTarget = value; RaisePropertyChanged(); } }
-        public double SiteAreaPer { get => siteAreaPer; set { siteAreaPer = value; RaisePropertyChanged(); } }
-        public double BuildingSiteAreaPer { get => Campus.BuildingSiteAreaPer; set {
+        #region 输入值
+        public SchoolType SchoolType { get => Campus.Type; set { Campus.Type = value; RaisePropertyChanged(); } }
+        public int Population { get => Campus.Population; set { Campus.Population = value > 0 ? value : 0; RaisePropertyChanged(); } }
+        public double PlotRatioT { get => Campus.PlotRatioT; set { Campus.PlotRatioT = value > 0 ? value : 0; RaisePropertyChanged(); } }
+        public double SiteArea { get => Campus.SiteArea; set { Campus.SiteArea = value > 0 ? value : 0; RaisePropertyChanged(); } }
+        #endregion
+
+        #region 输入+输出
+        public double BuildingSiteAreaPer
+        {
+            get => Campus.BuildingSiteAreaPer;
+            set
+            {
                 Campus.BuildingSiteAreaPer = value;
                 RaisePropertyChanged();
 
@@ -102,7 +135,11 @@ namespace WpfApp1.ViewModel
                 }
             }
         }
-        public double SportsSiteAreaPer { get => Campus.SportsSiteAreaPer; set {
+        public double SportsSiteAreaPer
+        {
+            get => Campus.SportsSiteAreaPer;
+            set
+            {
                 Campus.SportsSiteAreaPer = value;
                 RaisePropertyChanged();
                 if (BuildingSiteAreaPer + SportsSiteAreaPer < siteAreaPer)
@@ -115,16 +152,22 @@ namespace WpfApp1.ViewModel
                 }
             }
         }
-        public double BuildingSiteArea { get => buildingSiteArea; set { buildingSiteArea = value; RaisePropertyChanged(); } }
-        public double SportsSiteArea { get => sportsSiteArea; set { sportsSiteArea = value; RaisePropertyChanged(); } }
-        public double RestArea { get => Campus.RestArea; set { Campus.RestArea = value; RaisePropertyChanged(); } }
-        public double RestBuildingSiteArea { get => Campus.RestBuildingSiteArea; set { Campus.RestBuildingSiteArea = value; RaisePropertyChanged(); } }
+        #endregion
+
+        public Dictionary<string, string> CTypeList { get; set; } = new Dictionary<string, string>();
+
+        private ObservableCollection<SchoolType> schoolTypeList;
+        public ObservableCollection<SchoolType> SchoolTypeList { get => schoolTypeList; set { schoolTypeList = value; RaisePropertyChanged(); } }
+
+
         string reg;
         public string Reg { get => reg; set { reg = value; RaisePropertyChanged(); } }
 
-        public ObservableCollection<Building> MustBuildings { get => campus.MustBuildings.Buildings; set { campus.MustBuildings.Buildings = value; RaisePropertyChanged(); }}
-        public ObservableCollection<Building> OptionalBuildings { get => campus.OptionalBuildings.Buildings; set { campus.OptionalBuildings.Buildings = value; RaisePropertyChanged();}}
-        public ObservableCollection<District> Districts{get => campus.Districts; set { Campus.Districts = value; RaisePropertyChanged(); }}
+
+
+        public ObservableCollection<Building> MustBuildings { get => campus.MustBuildings.Buildings; set { campus.MustBuildings.Buildings = value; RaisePropertyChanged(); } }
+        public ObservableCollection<Building> OptionalBuildings { get => campus.OptionalBuildings.Buildings; set { campus.OptionalBuildings.Buildings = value; RaisePropertyChanged(); } }
+        public ObservableCollection<Zone> Districts { get => campus.Zones; set { Campus.Zones = value; RaisePropertyChanged(); } }
 
         public Campus Campus { get => campus; set => campus = value; }
 
@@ -133,9 +176,9 @@ namespace WpfApp1.ViewModel
         {
             int t = SchoolType.Key;
             //确定生均限制
-             temp = SchoolType.PickNum(Population);
+            temp = SchoolType.PickNum(Population);
             SiteAreaPer_Limit = temp[0];//规范的生均总用地限制
-            double areaPerLimit = SchoolType.InsertAreaPer( Population,SchoolType.AreaPerList);
+            double areaPerLimit = SchoolType.InsertAreaPer(Population, SchoolType.AreaPerList);
 
             //核验1
             int pop_limit = (int)(SiteArea / SiteAreaPer_Limit);//倒推人数限制
@@ -145,8 +188,8 @@ namespace WpfApp1.ViewModel
 
             //核验2
             double areaTotal = areaPerLimit * Population;
-            ExamineRatioResult = Campus.AreaTarget < areaTotal ? $"容积率过低不满足生均建筑面积要求，容积率应大于: { areaTotal / SiteArea}" : "PASS";
-           
+            ExamineRatioResult = Campus.AreaTarget < areaTotal ? $"容积率过低，应大于: { areaTotal / SiteArea}" : "PASS";
+
         }
         private void Confirm1()
         {
@@ -157,7 +200,7 @@ namespace WpfApp1.ViewModel
         }
 
         private void Reset()
-        {   
+        {
             BuildingSiteAreaPer = temp[1]; //生均校舍
             SportsSiteAreaPer = temp[2]; //生均体育
         }
@@ -170,9 +213,65 @@ namespace WpfApp1.ViewModel
 
         private void OpenRegChart()
         {
-            RegChart chartWindow = new RegChart(schoolTypeList);
-            chartWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            RegChart chartWindow = new RegChart(schoolTypeList)
+            {
+                WindowStartupLocation = WindowStartupLocation.CenterScreen
+            };
             chartWindow.Show();
+        }
+
+        private void Export(DataGrid districtGrid)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog()
+            {
+                DefaultExt = "csv",
+                Filter = "CSV Files (*.csv)|*.csv|Excel XML (*.xml)|*.xml|All files (*.*)|*.*",
+                FilterIndex = 1,
+                InitialDirectory = @"E:\",//设置初始目录
+                FileName = "export.csv"
+            };
+
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                string filePath = saveFileDialog.FileName;// 获取选择的文件路径
+                //总体的一些指标
+                using (StreamWriter writer = new StreamWriter(filePath, false))
+                {
+                    writer.WriteLine($"学校类型：{SchoolType.Text}");
+                    writer.WriteLine($"学生人数：{Population}");
+                    writer.WriteLine($"用地面积：{SiteArea}");
+                    writer.WriteLine($"总建筑面积：目标{AreaTarget},配置{ReArea}");
+                    writer.WriteLine($"校舍用地：目标{Math.Round(BuildingSiteArea, 2)}，" +
+                        $"最低{BuildingSiteArea - RestBuildingSiteArea}");
+                    writer.WriteLine($"体育用地：{Math.Round(SportsSiteArea, 2)}");
+                    writer.WriteLine($"容积率：目标{PlotRatioT}，配置{RePlotRatio}");
+                    writer.WriteLine($"实际建筑密度：{ReDensity}");
+                    writer.WriteLine($"分区面积上浮范围：{SiteAreaBias}");
+                    writer.WriteLine(" ");
+                }
+
+                // 分区内容保存操作
+                districtGrid.SelectAllCells();
+                districtGrid.ClipboardCopyMode = DataGridClipboardCopyMode.IncludeHeader;
+                ApplicationCommands.Copy.Execute(null, districtGrid);
+                districtGrid.UnselectAllCells();
+
+                string result = (string)Clipboard.GetData(DataFormats.CommaSeparatedValue);
+
+                File.AppendAllText(filePath, result, Encoding.UTF8);
+                Clipboard.Clear();//清空粘贴板
+
+                //这里同时保存一份json
+                string json = JsonConvert.SerializeObject(Districts, Formatting.Indented);
+                string jsonPath = filePath.Replace("csv", "json");
+                File.WriteAllText(jsonPath, json); // 将JSON字符串写入到文件
+                
+                MessageBox.Show("文件保存成功！路径：" + filePath);
+            }
+            else
+            {
+                MessageBox.Show("文件保存取消！");
+            }
         }
 
         #region 读取Excel数据
@@ -195,7 +294,7 @@ namespace WpfApp1.ViewModel
             int rowCount = 0;//行数
             try
             {
-                fs = new FileStream(fileName, FileMode.Open, FileAccess.Read) ;
+                fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
                 if (fileName.IndexOf(".xlsx") > 0) // 2007版本
                 {
                     workbook = new XSSFWorkbook(fs);
@@ -204,6 +303,7 @@ namespace WpfApp1.ViewModel
                 {
                     workbook = new HSSFWorkbook(fs);
                 }
+
                 if (sheetName != null)
                 {
                     sheet = workbook.GetSheet(sheetName);//根据给定的sheet名称获取数据
@@ -235,7 +335,7 @@ namespace WpfApp1.ViewModel
                     for (int i = startRow; i <= rowCount; ++i)//循环遍历所有行
                     {
                         IRow row = sheet.GetRow(i);//第几行
-                        if (row == null||row.GetCell(0)==null)
+                        if (row == null || row.GetCell(0) == null)
                         {
                             continue; //没有数据的行默认是null;
                         }
@@ -250,7 +350,7 @@ namespace WpfApp1.ViewModel
                         }
                         data.Rows.Add(dataRow);
                     }
-                   int n =  data.Rows.Count;
+                    int n = data.Rows.Count;
                 }
                 return data;
             }
@@ -266,7 +366,7 @@ namespace WpfApp1.ViewModel
 
             DataTable dt = ExcelToDatatable(path, "生均面积指标", true);
             int stIndex = 0;
-            ObservableCollection<SchoolType>  _schoolTypeList = new ObservableCollection<SchoolType>();
+            ObservableCollection<SchoolType> _schoolTypeList = new ObservableCollection<SchoolType>();
 
             foreach (DataRow dr in dt.Rows)
             {
@@ -281,7 +381,7 @@ namespace WpfApp1.ViewModel
                 double[][] sitePer = new double[3][];
                 for (int j = 0; j < 3; j++)
                 {
-                    sitePer[j]= new double[a.Length];
+                    sitePer[j] = new double[a.Length];
                 }
                 for (int i = 0; i < a.Length; i++)
                 {
@@ -306,9 +406,9 @@ namespace WpfApp1.ViewModel
                 {
                     Key = stIndex,
                     Text = dr[0].ToString(),
-                    Classify = class1,
+                    Classify = class1, //用地-规模分级
                     SitePerList = sitePer,
-                    PopClass = class2,
+                    PopClass = class2, //建筑-规模分级
                     AreaPerList = areaPer
                 };
                 _schoolTypeList.Add(st);
@@ -319,32 +419,42 @@ namespace WpfApp1.ViewModel
         }
         private void SetBuildings()
         {
-            DataTable dt = ExcelToDatatable("Resources/mustBuildings.xlsx", "sheet1", true);
-            Campus.SetMustBuildingList(dt);
-
-            dt = ExcelToDatatable("Resources/optionalBuildings.xlsx", "sheet1", true);
-            Campus.SetOptionalBuildingList(dt);
-
-            RestArea = Campus.RestArea;
-            RestBuildingSiteArea = Campus.RestBuildingSiteArea;
+            if (dt == null)
+            {
+                dt = ExcelToDatatable("Resources/BuildingList.xlsx", "必配", true);
+            }
+            Campus.SetMustBuildingList(dt);//必配建筑指标重新选择
+            var a = Campus.Buildings.Count;
+            if (dt2 == null)
+            {
+                dt2 = ExcelToDatatable("Resources/BuildingList.xlsx", "选配", true);
+                Campus.SetOptionalBuildingList(dt2);
+            }
+            a = Campus.Buildings.Count;  
+            RestArea = Campus.RestArea; //更新
+            RestBuildingSiteArea = Campus.RestBuildingSiteArea;//更新
         }
 
         private void SetDistrict()
         {
-             Districts = campus.SetDistrict(); 
-
+            Districts = campus.SetZone();
+            ReArea = campus.Area;
+            ReDensity = campus.Density;
+            RePlotRatio = campus.PlotRatio;
+            SiteAreaBias = campus.SiteAreaBias;
         }
         private void CheckBuildings(ObservableCollection<Building> buildings)
         {
-            foreach(Building b in buildings)
-            {
-                b.SetSiteArea();
-            }
-
+            //foreach(Building b in buildings)
+            //{
+            //    b.SetSiteArea();
+            //}
+ 
+            Campus.BuildingsUpdate();
             RestArea = campus.RestArea;
             RestBuildingSiteArea = campus.RestBuildingSiteArea;
 
-            if (RestArea<0 || RestBuildingSiteArea<0)
+            if (RestArea < 0 || RestBuildingSiteArea < 0)
             {
                 var r = MessageBox.Show("必配项总面积超出限制，请调整");
             }

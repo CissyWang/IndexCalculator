@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WpfApp1
+namespace CampusClass
 {
     public class BuildingList: IEnumerable<Building>
     {
@@ -14,7 +14,7 @@ namespace WpfApp1
 
         public BuildingList()
         {
-            this.Buildings = new ObservableCollection<Building>(); 
+            this.buildings = new ObservableCollection<Building>(); 
         }
 
         //internal int AddBuilding(Building addBuilding)
@@ -25,9 +25,8 @@ namespace WpfApp1
         //}
         internal void Add(Building addBuilding)
         {
-            Buildings.Add(addBuilding);
+            buildings.Add(addBuilding);
         }
-
         public double Area
         {
             get
@@ -84,7 +83,7 @@ namespace WpfApp1
         {
             get
             {
-                return this.Buildings.Count;
+                return this.buildings.Count;
             }
         }
 
@@ -92,12 +91,12 @@ namespace WpfApp1
 
         public IEnumerator<Building> GetEnumerator()
         {
-            return this.Buildings.GetEnumerator();
+            return this.buildings.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return this.Buildings.GetEnumerator();
+            return this.buildings.GetEnumerator();
         }
     }
 }

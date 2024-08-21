@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WpfApp1
+namespace CampusClass
 {
     //public enum schoolType
     //{
@@ -28,38 +28,54 @@ namespace WpfApp1
             SiteArea = 500000;
             PlotRatio = 1;
         }
+        //double restArea;
+        //double restBuildingSiteArea;
         BuildingList buildings = new BuildingList();
-        private List<string> districtNames;
+        private List<string> zoneNames;
         public int Population { get; set; }
         public double PlotRatio { get; set; }
         public double SiteArea { get; set; }
 
-        public BuildingList Buildings { get{
-                foreach (Building b in MustBuildings)
-                {
-                    if(!buildings.Contains(b))
+        public void BuildingsUpdate()
+        {
+            buildings.Buildings.Clear();
+            foreach (Building b in MustBuildings)
+            {
+                if ( !buildings.Contains(b))
                     buildings.Add(b);
-                }
-                foreach(Building b in OptionalBuildings)
-                {
-                    if (!buildings.Contains(b))
-                        buildings.Add(b);
-                }
-                return buildings;
-            } }
-        public BuildingList MustBuildings{get;set;}
+            }
+            foreach (Building b in OptionalBuildings)
+            {
+                if (!buildings.Contains(b))
+                    buildings.Add(b);
+            }
+        }
+   
+
+        public BuildingList MustBuildings { get; set; }
         public BuildingList OptionalBuildings { get; set; }
         public double AreaTarget { get => SiteArea * PlotRatio; }
         public double SiteAreaPer { get => SiteArea / Population; }
-
+        public double Area
+        {
+            get => buildings.Area;
+        }
+        public double Density
+        {
+            get => buildings.FloorArea / SiteArea;
+        }
+        public double SiteAreaBias
+        {
+            get => (BuildingSiteArea - buildings.SiteArea) / buildings.SiteArea;
+        }
+        public double PlotRatioT{get;set;}
         public double SiteAreaPer_Limit { set; get; }
         public double BuildingSiteAreaPer { set; get; }
         public double SportsSiteAreaPer { set; get; }
         public double BuildingSiteArea { get => BuildingSiteAreaPer * Population; }
         public double SportsSiteArea { get => SportsSiteAreaPer * Population; }
         public SchoolType Type { get; set; }
-        double restBuildingSiteArea;
-        double restArea;
+
         public double RestBuildingSiteArea { get 
             {
                 double t= BuildingSiteArea;
@@ -67,7 +83,7 @@ namespace WpfApp1
                      t  -= MustBuildings.SiteArea;
                 if (OptionalBuildings != null)
                     t -= OptionalBuildings.SiteArea;
-                return t;}set=>restBuildingSiteArea=value;
+                return t;}
         }
 
         public double RestArea
@@ -81,22 +97,32 @@ namespace WpfApp1
                     t -= OptionalBuildings.Area;
                 return t;
             }
-            set => restArea = value;
+
         }
 
-        public ObservableCollection<District> Districts { get; set; } 
+        public ObservableCollection<Zone> Zones { get; set; }
+        public BuildingList Buildings { get => buildings; }
 
         public BuildingList SetMustBuildingList(DataTable dt)
         {
             MustBuildings = new BuildingList();
             int index = 0;
             int lastIndex = dt.Columns.Count - 1;
-            foreach (DataRow dr in dt.Rows)
+            int typeIndex=0;
+            for (int i = 1; i <= lastIndex - 3;i++)
             {
-                double[] area1 = new double[lastIndex - 3];
-                for (int i = 1; i <= area1.Length; i++)
+                if (dt.Columns[i].ColumnName == Type.Text)
                 {
-                    area1[i-1] = Convert.ToDouble(dr[i]);
+                    typeIndex = i;
+                    break;
+                }
+            }
+            foreach (DataRow dr in dt.Rows)
+            {                
+                double[] area1 = new double[3];
+                for (int i = 0; i < area1.Length; i++)
+                {
+                    area1[i] = Convert.ToDouble(dr[typeIndex].ToString().Replace(" ","").Split('-')[i]);
                 }
                 double areaPer = Type.InsertAreaPer(Population, area1);
                 string dName = dr[lastIndex - 2].ToString();
@@ -104,7 +130,7 @@ namespace WpfApp1
                 {
                     Index=index,
                     Name = dr[0].ToString(),
-                    District_name = dName,
+                    Zone_name = dName,
                     Layer = Convert.ToInt32(dr[lastIndex - 1]),
                     Density = Convert.ToDouble(dr[lastIndex]),
                     Area_per = areaPer,
@@ -112,9 +138,10 @@ namespace WpfApp1
                 };
 
                 MustBuildings.Add(_building);
-                //if(!districtNames.Contains(dName))
+                buildings.Add(_building);
+                //if(!zoneNames.Contains(dName))
                 //{
-                //    districtNames.Add(dName);
+                //    zoneNames.Add(dName);
                 //}
 
                 index++;
@@ -132,56 +159,57 @@ namespace WpfApp1
                 Building _building = new Building
                 {
                     Name = dr[0].ToString(),
-                    District_name = dr[lastIndex - 2].ToString(),
+                    Zone_name = dr[lastIndex - 2].ToString(),
                     Layer = Convert.ToInt32(dr[lastIndex - 1]),
                     Density = Convert.ToDouble(dr[lastIndex]),
                     Area = Convert.ToDouble(dr[1]),
                 };
 
                 OptionalBuildings.Add(_building);
+                buildings.Add(_building);
                 index++;
             }
 
             return OptionalBuildings;
         }
 
-        public ObservableCollection<District> SetDistrict()
+        public ObservableCollection<Zone> SetZone()
         {
-            Districts = new ObservableCollection<District>();
-            districtNames = new List<string>();
+            Zones = new ObservableCollection<Zone>();
+            zoneNames = new List<string>();
 
             int index = 0;
-            foreach (Building b in Buildings)
+            foreach (Building b in buildings)
             {
-                if (!districtNames.Contains(b.District_name))
+                if (!zoneNames.Contains(b.Zone_name))
                 {
-                    districtNames.Add(b.District_name);
-                    var d = new District{
+                    zoneNames.Add(b.Zone_name);
+                    var d = new Zone{
                        Index =  index,
-                       Name = b.District_name};
+                       Name = b.Zone_name};
                     d.Buildings = new BuildingList();
                     d.Buildings.Add(b);
-                    Districts.Add(d);
+                    Zones.Add(d);
                     index++;
                 }
                 else
                 {
-                    int i = districtNames.IndexOf(b.District_name);
-                    Districts[i].Buildings.Add(b);//
+                    int i = zoneNames.IndexOf(b.Zone_name);
+                    Zones[i].Buildings.Add(b);//
                 }
             }
-            if (!districtNames.Contains("户外体育区"))
+            if (!zoneNames.Contains("户外体育区"))
             {
 
-                Districts.Add(new District
+                Zones.Add(new Zone
                 {
-                    Index = Districts.Count,
+                    Index = Zones.Count,
                     Name = "户外体育区",
                     Site_area = SportsSiteArea
                 });
-                districtNames.Add("户外体育区");
+                zoneNames.Add("户外体育区");
             }
-            return Districts;
+            return Zones;
         }
     }
 }

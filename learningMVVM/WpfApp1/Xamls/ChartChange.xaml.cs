@@ -22,7 +22,7 @@ namespace WpfApp1.Xamls
     public partial class ChartChange : Window
     {
 
-        internal bool canOpen;
+        //internal bool canOpen;
         public ChartChange(MainViewModel mainViewModel)
         {
             //this.campus = viewModel.Campus;
@@ -30,10 +30,15 @@ namespace WpfApp1.Xamls
             this.DataContext = mainViewModel;
         }
 
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private void myDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            canOpen = true;
+
         }
+
+        //private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        //{
+        //    canOpen = true;
+        //}
 
 
 
