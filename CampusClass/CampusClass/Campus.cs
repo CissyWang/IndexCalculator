@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Data;
 using System.IO;
 using System.Linq;
@@ -20,20 +21,21 @@ namespace CampusClass
     //    外语类 = 6,
     //    艺术类 = 7,
     //}
-    public class Campus
+    public class Campus 
     {
         public Campus()
         {
             Population = 8000;
             SiteArea = 500000;
-            PlotRatio = 1;
+            PlotRatioT = 1;
         }
         //double restArea;
         //double restBuildingSiteArea;
         BuildingList buildings = new BuildingList();
         private List<string> zoneNames;
         public int Population { get; set; }
-        public double PlotRatio { get; set; }
+        public double PlotRatio { get=>Area / SiteArea;
+            }
         public double SiteArea { get; set; }
 
         public void BuildingsUpdate()
@@ -54,7 +56,7 @@ namespace CampusClass
 
         public BuildingList MustBuildings { get; set; }
         public BuildingList OptionalBuildings { get; set; }
-        public double AreaTarget { get => SiteArea * PlotRatio; }
+        public double AreaTarget { get => SiteArea * PlotRatioT; }
         public double SiteAreaPer { get => SiteArea / Population; }
         public double Area
         {
@@ -106,10 +108,10 @@ namespace CampusClass
         public BuildingList SetMustBuildingList(DataTable dt)
         {
             MustBuildings = new BuildingList();
-            int index = 0;
             int lastIndex = dt.Columns.Count - 1;
             int typeIndex=0;
-            for (int i = 1; i <= lastIndex - 3;i++)
+            int index = 1;
+            for (int i = 2; i <= lastIndex - 3;i++)
             {
                 if (dt.Columns[i].ColumnName == Type.Text)
                 {
@@ -128,8 +130,8 @@ namespace CampusClass
                 string dName = dr[lastIndex - 2].ToString();
                 Building _building = new Building
                 {
-                    Index=index,
-                    Name = dr[0].ToString(),
+                    Index = (dr[0] != DBNull.Value && dr[0] != null && Convert.ToInt32(dr[0]) > 0) ? Convert.ToInt32(dr[0]) : index,
+                    Name = dr[1].ToString(),
                     Zone_name = dName,
                     Layer = Convert.ToInt32(dr[lastIndex - 1]),
                     Density = Convert.ToDouble(dr[lastIndex]),
@@ -138,11 +140,6 @@ namespace CampusClass
                 };
 
                 MustBuildings.Add(_building);
-                buildings.Add(_building);
-                //if(!zoneNames.Contains(dName))
-                //{
-                //    zoneNames.Add(dName);
-                //}
 
                 index++;
             }
@@ -151,22 +148,23 @@ namespace CampusClass
         public BuildingList SetOptionalBuildingList(DataTable dt)
         {
             OptionalBuildings = new BuildingList();
-            int index = 0;
+            int index = 1;
             int lastIndex = dt.Columns.Count - 1;
             
             foreach (DataRow dr in dt.Rows)
             {
+
                 Building _building = new Building
                 {
-                    Name = dr[0].ToString(),
+                    Index = (dr[0] != DBNull.Value && dr[0] != null && Convert.ToInt32(dr[0]) > 0) ? Convert.ToInt32(dr[0]) : index,
+                    Name = dr[1].ToString(),
                     Zone_name = dr[lastIndex - 2].ToString(),
                     Layer = Convert.ToInt32(dr[lastIndex - 1]),
                     Density = Convert.ToDouble(dr[lastIndex]),
-                    Area = Convert.ToDouble(dr[1]),
+                    Area = Convert.ToDouble(dr[2]),
                 };
 
                 OptionalBuildings.Add(_building);
-                buildings.Add(_building);
                 index++;
             }
 
@@ -211,5 +209,6 @@ namespace CampusClass
             }
             return Zones;
         }
+
     }
 }

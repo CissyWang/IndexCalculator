@@ -19,7 +19,7 @@
                 <DataGridTextColumn Header="编号" Binding="{Binding Index, Mode=OneTime}" />
                 <DataGridTextColumn Header="必配项目" Binding="{Binding Name, Mode=OneTime}" />
                 <DataGridTextColumn Header="人均建筑面积" Binding="{Binding Area_per, Mode=OneWay}"  />
-                <DataGridTextColumn Header="分区" Binding="{Binding District_name}" />
+                <DataGridTextColumn Header="分区" Binding="{Binding Zone_name}" />
                 <DataGridTextColumn Header="层数" Binding="{Binding Layer}" />
                 <DataGridTextColumn Header="密度" Binding="{Binding Density}" />
                 <DataGridTextColumn Header="总建筑面积" Binding="{Binding Area}" />

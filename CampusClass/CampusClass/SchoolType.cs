@@ -30,16 +30,13 @@ namespace CampusClass
             for (int j = 0; j < 3; j++)
             {
                 double[] list = sitePerList[j];
-
                 for (int i = 0; i < classify.Length; i++)
                 {
-                    if (population <= classify[i])
+                    if (population >= classify[i])
                     {
-                        numArray[j] = list[i - 1];
+                        numArray[j] = list[i];
                         break;
                     }
-                    else
-                        numArray[j] = list[i];
                 }
             }
             return numArray;

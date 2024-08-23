@@ -22,8 +22,7 @@ using System.Windows.Controls;
 
 namespace WpfApp1.ViewModel
 {
-
-    /// <summary>
+     /// <summary>
     /// This class contains properties that the main View can data bind to.
     /// <para>
     /// Use the <strong>mvvminpc</strong> snippet to add bindable properties to this ViewModel.
@@ -79,13 +78,13 @@ namespace WpfApp1.ViewModel
         # region 输出值
         double areaTarget;
         double siteAreaPer;
-        public double AreaTarget { get => areaTarget; set { areaTarget = value; RaisePropertyChanged(); } }
-        public double SiteAreaPer { get => siteAreaPer; set { siteAreaPer = value; RaisePropertyChanged(); } }
+        public double AreaTarget { get => Math.Round(areaTarget,2); set { areaTarget = value; RaisePropertyChanged(); } }
+        public double SiteAreaPer { get => Math.Round(siteAreaPer,2); set { siteAreaPer = value; RaisePropertyChanged(); } }
 
         private double buildingSiteArea;
         private double sportsSiteArea;
-        public double BuildingSiteArea { get => buildingSiteArea; set { buildingSiteArea = value; RaisePropertyChanged(); } }
-        public double SportsSiteArea { get => sportsSiteArea; set { sportsSiteArea = value; RaisePropertyChanged(); } }
+        public double BuildingSiteArea { get => Math.Round(buildingSiteArea,2); set { buildingSiteArea = value; RaisePropertyChanged(); } }
+        public double SportsSiteArea { get => Math.Round(sportsSiteArea,2); set { sportsSiteArea = value; RaisePropertyChanged(); } }
 
         string examinePopulationResult;
         string examineRatioResult;
@@ -97,16 +96,15 @@ namespace WpfApp1.ViewModel
         public string ExamineRatioResult { get => examineRatioResult; set { examineRatioResult = value; RaisePropertyChanged(); } }
 
         double restArea, restBuildingSiteArea;
-        public double RestArea { get => restArea; set { restArea = value; RaisePropertyChanged(); } }
+        public double RestArea { get => Math.Round(restArea,2); set { restArea = value; RaisePropertyChanged(); } }
         public double RestBuildingSiteArea { get => Math.Round(restBuildingSiteArea, 2); set { restBuildingSiteArea = value; RaisePropertyChanged(); } }
-        double reArea;
-        double reDensity;
-        double rePlotRatio;
-        double siteAreaBias;
-        public double ReArea { get => Campus.Area; set { reArea = value; RaisePropertyChanged(); } }
-        public double RePlotRatio { get => Math.Round(Campus.PlotRatio, 3); set { rePlotRatio = value; RaisePropertyChanged(); } }
-        public double ReDensity { get => Math.Round(Campus.Density, 2); set { reDensity = value; RaisePropertyChanged(); } }
-        public double SiteAreaBias { get => Math.Round(Campus.SiteAreaBias, 2); set { siteAreaBias = value; RaisePropertyChanged(); } }
+        
+        double reArea,reDensity,rePlotRatio,siteAreaBias;
+        //每次重新set的时候通知前端更新，因此需要set中写RaisePropertyChanged()
+        public double ReArea { get => Math.Round(reArea,2); set { reArea = value; RaisePropertyChanged(); } }
+        public double RePlotRatio { get => Math.Round(rePlotRatio, 2); set { rePlotRatio = value; RaisePropertyChanged(); } }
+        public double ReDensity { get => Math.Round(reDensity, 2); set { reDensity = value; RaisePropertyChanged(); } }
+        public double SiteAreaBias { get => Math.Round(siteAreaBias, 2); set { siteAreaBias = value; RaisePropertyChanged(); } }
         #endregion
 
         #region 输入值
@@ -162,8 +160,6 @@ namespace WpfApp1.ViewModel
 
         string reg;
         public string Reg { get => reg; set { reg = value; RaisePropertyChanged(); } }
-
-
 
         public ObservableCollection<Building> MustBuildings { get => campus.MustBuildings.Buildings; set { campus.MustBuildings.Buildings = value; RaisePropertyChanged(); } }
         public ObservableCollection<Building> OptionalBuildings { get => campus.OptionalBuildings.Buildings; set { campus.OptionalBuildings.Buildings = value; RaisePropertyChanged(); } }
@@ -241,9 +237,9 @@ namespace WpfApp1.ViewModel
                     writer.WriteLine($"学生人数：{Population}");
                     writer.WriteLine($"用地面积：{SiteArea}");
                     writer.WriteLine($"总建筑面积：目标{AreaTarget},配置{ReArea}");
-                    writer.WriteLine($"校舍用地：目标{Math.Round(BuildingSiteArea, 2)}，" +
+                    writer.WriteLine($"校舍用地：目标{BuildingSiteArea}，" +
                         $"最低{BuildingSiteArea - RestBuildingSiteArea}");
-                    writer.WriteLine($"体育用地：{Math.Round(SportsSiteArea, 2)}");
+                    writer.WriteLine($"体育用地：{SportsSiteArea}");
                     writer.WriteLine($"容积率：目标{PlotRatioT}，配置{RePlotRatio}");
                     writer.WriteLine($"实际建筑密度：{ReDensity}");
                     writer.WriteLine($"分区面积上浮范围：{SiteAreaBias}");
@@ -419,18 +415,21 @@ namespace WpfApp1.ViewModel
         }
         private void SetBuildings()
         {
+            
             if (dt == null)
             {
                 dt = ExcelToDatatable("Resources/BuildingList.xlsx", "必配", true);
             }
             Campus.SetMustBuildingList(dt);//必配建筑指标重新选择
-            var a = Campus.Buildings.Count;
+            //var a = Campus.Buildings.Count;
             if (dt2 == null)
             {
                 dt2 = ExcelToDatatable("Resources/BuildingList.xlsx", "选配", true);
                 Campus.SetOptionalBuildingList(dt2);
             }
-            a = Campus.Buildings.Count;  
+
+            campus.BuildingsUpdate();
+            //a = Campus.Buildings.Count;  
             RestArea = Campus.RestArea; //更新
             RestBuildingSiteArea = Campus.RestBuildingSiteArea;//更新
         }

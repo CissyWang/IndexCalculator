@@ -5,5 +5,4 @@ E:\grasshopper_C#\IndexCalculator-WPF\CampusClass\CampusClass\obj\Debug\CampusCl
 E:\grasshopper_C#\IndexCalculator-WPF\CampusClass\CampusClass\obj\Debug\CampusClass.pdb
 E:\grasshopper_C#\IndexCalculator-WPF\CampusClass\CampusClass\bin\Debug\Newtonsoft.Json.dll
 E:\grasshopper_C#\IndexCalculator-WPF\CampusClass\CampusClass\bin\Debug\Newtonsoft.Json.xml
-E:\grasshopper_C#\IndexCalculator-WPF\CampusClass\CampusClass\obj\Debug\CampusClass.csproj.AssemblyReference.cache
 E:\grasshopper_C#\IndexCalculator-WPF\CampusClass\CampusClass\obj\Debug\CampusClass.csproj.CopyComplete

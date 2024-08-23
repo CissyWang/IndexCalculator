@@ -71,7 +71,7 @@
                             </ComboBox>
                             <TextBox   Name ="用地面积"  Text="{Binding SiteArea}" Grid.Column="1" Grid.Row="1" Margin="0,5"/>
                             <TextBox  Text="{Binding Population}" Grid.Column="1" Grid.Row="2" Margin="0,5"/>
-                            <TextBox  Text="{Binding PlotRatio}" Grid.Column="1" Grid.Row="4" Margin="0,5"/>
+                            <TextBox  Text="{Binding PlotRatioT}" Grid.Column="1" Grid.Row="4" Margin="0,5"/>
                             <TextBlock Text="{Binding ExaminePopulationResult}" Margin="0,0"
                                        FontStyle="Italic" Foreground="Red" FontSize="10" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" />
                             <TextBlock Text="(㎡)" Grid.Column="2" Grid.Row="1"/>
@@ -82,7 +82,7 @@
                     </StackPanel>
 
                     <!--Step2  Visibility="Hidden"-->
-                    <StackPanel x:Name="step2" >
+                    <StackPanel x:Name="step2" Visibility="Hidden" >
                         <TextBlock  Text="总体指标"  Height="20" FontWeight="Black"/>
 
                         <StackPanel Orientation="Horizontal" >
@@ -124,7 +124,7 @@
                         <Button Content="下一步" Click="ShowStep3" Command="{Binding SetBuildingsCommand}" Background="White"/>
                     </StackPanel>
                     <!--Step3 Visibility="Hidden"-->
-                    <StackPanel Name="step3"   >
+                    <StackPanel Name="step3" Visibility="Hidden"   >
                         <TextBlock  Text="建筑项目"  Height="20" FontWeight="Black"/>
                         <Grid >
                             <Grid.ColumnDefinitions>
@@ -206,10 +206,10 @@
                                 <TextBlock Text="校舍面积冗余"/>
                             </StackPanel>
                             <StackPanel Grid.Column="1">
-                                <TextBlock Text="{Binding reArea}" />
-                                <TextBlock Text="{Binding rePlotRatio}"/>
-                                <TextBlock Text="{Binding reDensity}"/>
-                                <TextBlock Text="{Binding siteAreaBias}"/>
+                                <TextBlock Text="{Binding ReArea}" />
+                                <TextBlock Text="{Binding RePlotRatio}"/>
+                                <TextBlock Text="{Binding ReDensity}"/>
+                                <TextBlock Text="{Binding SiteAreaBias}"/>
                             </StackPanel>
                             
                         </Grid>
